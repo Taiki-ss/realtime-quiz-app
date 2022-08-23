@@ -1,54 +1,51 @@
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
 
 export default function Home() {
-  const insertUser = async () => {
-    await axios.post("/api/user")
-  };
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    axios
+      .get("/api/user")
+      .then((res) => {
+        setUser(res.data);
+		console.log(res.data)
+      })
+      .catch((error) => console.log(error));
+  },[]);
+
   const updateUser = async () => {
-    await axios.patch("/api/user");
+    await axios.post("/api/user");
   };
-  const getUser = async () => {
-    await axios.get("/api/user");
+
+  const handleChange = (e) => {
+    setName(e.target.value);
   };
-  const deleteUser = async () => {
-    await axios.delete("/api/user");
+
+  const createNewUser = () => {
+    axios
+      .post("https://jsonplaceholder.typicode.com/users", {
+        name: name,
+      })
+      .then((response) => {
+        setUsers([...users, response.data]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <h1 className={styles.title}>エンジニア王はきみだ！</h1>
 
-        <div className="flex min-h-screen flex-col items-center justify-center py-2">
-          <button
-            className="mt-4 w-60 rounded-full bg-green-500 py-2 px-4 font-bold text-white hover:bg-green-700"
-            onClick={() => insertUser()}
-          >
-            Insert User
-          </button>
-          <button
-            className="mt-4 w-60 rounded-full bg-yellow-500 py-2 px-4 font-bold text-white hover:bg-yellow-700"
-            onClick={() => updateUser()}
-          >
-            Update User
-          </button>
-          <button
-            className="mt-4 w-60 rounded-full bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
-            onClick={() => getUser()}
-          >
-            Get User
-          </button>
-          <button
-            className="mt-4 w-60 rounded-full bg-red-500 py-2 px-4 font-bold text-white hover:bg-red-700"
-            onClick={() => deleteUser()}
-          >
-            Delete User
-          </button>
+        <div>
+			<h2>名前{user.userName}</h2>
+          <input value={user.name} onChange={handleChange} />
+          <button onClick={() => updateUser()}>送信</button>
         </div>
       </main>
     </div>

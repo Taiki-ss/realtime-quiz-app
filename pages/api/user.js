@@ -5,6 +5,7 @@ const admin = require("firebase-admin");
 
 export default async function handler(req, res) {
   const COLLECTION_NAME = "users";
+  const currentUser = "Taiki";
   //　初期化する
   if (admin.apps.length === 0) {
     admin.initializeApp({
@@ -12,48 +13,56 @@ export default async function handler(req, res) {
     });
   }
   const db = getFirestore();
-  let targetDoc,docRef;
+  let targetDoc = "",
+    point = 0;
 
-  await db
-    .collection(COLLECTION_NAME)
-    .get()
-    .then((res) => {
-      res.docs.forEach((doc) => {
-        if ((doc.data().name = "Taiki")) {
-          targetDoc = doc.id;
+  //   await db
+  //     .collection(COLLECTION_NAME)
+  //     .get()
+  //     .then((res) => {
+  //       for (const doc of res.docs) {
+  //         if (doc.data().name === currentUser) {
+  //           targetDoc = doc.id;
+  //           point = doc.data().point;
+  //           break;
+  //         }
+  //       }
+  //     });
 
-          docRef = db.collection(COLLECTION_NAME).doc(targetDoc);
-        }
-        console.log(`${doc.id} => ${doc.data().name}`);
-      });
-    });
-
-  //   const targetDoc = "a3kcv8CyEVEbHemPeoXB";
-  if (req.method === "PATCH") {
-    const docRef = db.collection(COLLECTION_NAME).doc();
-    const insertData = {
-      datano: "1",
-      name: "Taiki",
-      email: "taiki@example.com",
+  if (req.method === "GET") {
+    const data = {
+      docId: "",
+      userName: "",
+      point: "",
     };
-    docRef.set(insertData);
-  } else if (req.method === "POST") {
-    const updateData = {
-      q4: "A"
-    };
-    docRef.set(updateData, { merge: true });
-	return 'データ更新'
-  } else if (req.method === "GET") {
+
     await db
       .collection(COLLECTION_NAME)
       .get()
-      .then((res) => {
-        res.docs.forEach((doc) => {
-          console.log(`${doc.id} => ${doc.data().name}`);
-        });
+      .then((response) => {
+        for (const doc of response.docs) {
+          if (doc.data().name === currentUser) {
+            data.docId = doc.id;
+            data.point = doc.data().point;
+            data.userName = doc.data().name;
+            break;
+          }
+        }
+        res.status(200).json(data);
       });
-  } else if (req.method === "DELETE") {
-    const doc = await db.collection(COLLECTION_NAME).doc(targetDoc).delete();
   }
-  res.status(200);
+
+  if (req.method === "POST") {
+    const updateData = {
+      name: currentUser,
+      point: point,
+    };
+    if (targetDoc === "") {
+      const docRef = await db.collection(COLLECTION_NAME).doc();
+      docRef.set(updateData);
+    } else {
+      const docRef = await db.collection(COLLECTION_NAME).doc(targetDoc);
+      docRef.set(updateData, { merge: true });
+    }
+  }
 }
