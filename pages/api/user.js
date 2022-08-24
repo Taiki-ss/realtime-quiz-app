@@ -5,7 +5,7 @@ const admin = require("firebase-admin");
 
 export default async function handler(req, res) {
   const COLLECTION_NAME = "users";
-  const currentUser = "Taiki";
+  //   const currentUser = "Wakai";
   //　初期化する
   if (admin.apps.length === 0) {
     admin.initializeApp({
@@ -30,6 +30,7 @@ export default async function handler(req, res) {
   //     });
 
   if (req.method === "GET") {
+    const currentUser = req.query.currentName;
     const data = {
       docId: "",
       userName: "",
@@ -54,15 +55,11 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     const updateData = {
-      name: currentUser,
-      point: point,
+      name: req.body.currentName,
+      point: 0,
     };
-    if (targetDoc === "") {
-      const docRef = await db.collection(COLLECTION_NAME).doc();
-      docRef.set(updateData);
-    } else {
-      const docRef = await db.collection(COLLECTION_NAME).doc(targetDoc);
-      docRef.set(updateData, { merge: true });
-    }
+    const docRef = await db.collection(COLLECTION_NAME).doc();
+    docRef.set(updateData);
+	res.status(200).json(updateData)
   }
 }
