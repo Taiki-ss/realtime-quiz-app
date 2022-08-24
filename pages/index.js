@@ -27,6 +27,7 @@ export default function Home() {
 
   const handleChange = (e) => {
     setUsername(e.target.value);
+	setUserId('')
   };
 
   const getUser = () => {
@@ -76,7 +77,7 @@ export default function Home() {
         <div>
           <h2>
             登録:{userId ? "登録済み" : "未登録"}
-            <br /> 名前:{username ? username : "未登録"}
+            <br /> 名前:{username ? username : ""}
           </h2>
           <p>登録している名前を入力してください</p>
           <input

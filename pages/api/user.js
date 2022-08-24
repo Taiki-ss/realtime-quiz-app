@@ -59,7 +59,8 @@ export default async function handler(req, res) {
       point: 0,
     };
     const docRef = await db.collection(COLLECTION_NAME).doc();
-    docRef.set(updateData);
-	res.status(200).json(updateData)
+    const result = docRef.set(updateData);
+    res.status(200).json(result);
+
   }
 }
