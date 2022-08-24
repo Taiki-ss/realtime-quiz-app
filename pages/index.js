@@ -91,7 +91,7 @@ export default function Home() {
           <button onClick={() => getUser()}>決定</button>
 
           <button style={{ display: userId ? "block" : "none" ,backgroundColor:"pink"}}>
-		<Link href={{pathname:"/quiz",query:{username:username,userId:userId,userPoint:userPoint}}}>クイズへ進む</Link>
+		<Link href={{pathname:"/quiz",query:{username:username,userId:userId}}}>クイズへ進む</Link>
           </button>
         </div>
       </main>

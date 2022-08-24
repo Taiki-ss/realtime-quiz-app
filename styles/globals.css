@@ -35,3 +35,9 @@ a {
 	cursor: pointer;
   }
 }
+
+.answer-list {
+	padding: 0;
+	display: flex;
+	list-style: none;
+}
