@@ -35,6 +35,7 @@ export default async function handler(req, res) {
       docId: "",
       userName: "",
       point: "",
+      answered: "",
     };
 
     await db
@@ -46,6 +47,7 @@ export default async function handler(req, res) {
             data.docId = doc.id;
             data.point = doc.data().point;
             data.userName = doc.data().name;
+            data.answered = doc.data().answered;
             break;
           }
         }
@@ -57,10 +59,10 @@ export default async function handler(req, res) {
     const updateData = {
       name: req.body.currentName,
       point: 0,
+      answered: { q1: false },
     };
     const docRef = await db.collection(COLLECTION_NAME).doc();
     const result = docRef.set(updateData);
     res.status(200).json(result);
-
   }
 }

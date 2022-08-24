@@ -64,6 +64,7 @@ export default function Home() {
         currentName: username,
       })
       .then((res) => {
+		console.log(res.data)
         console.log("登録済み");
         getUser();
       })
