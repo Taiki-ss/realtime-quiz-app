@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -7,6 +8,7 @@ import axios from "axios";
 export default function Home() {
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
+  const [userPoint, setUserPoint] = useState(0);
   useEffect(() => {
     // axios
     //   .get("/api/user",{
@@ -27,7 +29,7 @@ export default function Home() {
 
   const handleChange = (e) => {
     setUsername(e.target.value);
-	setUserId('')
+    setUserId("");
   };
 
   const getUser = () => {
@@ -42,6 +44,7 @@ export default function Home() {
         if (res.data.docId) {
           setUsername(res.data.userName);
           setUserId(res.data.docId);
+		  setUserPoint(res.data.point)
         } else {
           if (
             confirm(
@@ -86,7 +89,10 @@ export default function Home() {
             onChange={handleChange}
           />
           <button onClick={() => getUser()}>決定</button>
-          {/* <button onClick={() => updateUser()}>送信</button> */}
+
+          <button style={{ display: userId ? "block" : "none" ,backgroundColor:"pink"}}>
+		<Link href={{pathname:"/quiz",query:{username:username,userId:userId,userPoint:userPoint}}}>クイズへ進む</Link>
+          </button>
         </div>
       </main>
     </div>
