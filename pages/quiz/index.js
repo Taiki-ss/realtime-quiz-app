@@ -4,20 +4,20 @@ import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.css";
 import axios from "axios";
 
-
 export default function Quiz() {
   const router = useRouter();
-  const username = router.query.username;
   const userId = router.query.userId;
-  const [questionNum, setQuestionNum] = useState(0);
-  const [question, setQuestion] = useState('');
+  const [questionNum, setQuestionNum] = useState(1);
+  const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [isAnswerd, setIsAnswerd] = useState(false);
+  const [userData, setUserData] = useState({});
 
-  useEffect(() => resetQuestion,[questionNum]);
+  useEffect(() => resetQuestion, [questionNum]);
 
   const resetQuestion = () => {
     console.log("実行");
+
     axios
       .get("/api/question", { params: { param: "currentNum" } })
       .then((res) => {
@@ -25,7 +25,7 @@ export default function Quiz() {
         if (questionNum != res.data) {
           setIsAnswerd(false);
         }
-		setQuestionNum(res.data);
+        setQuestionNum(res.data);
         getQuestion(res.data);
       })
       .catch((error) => console.log(error));
@@ -39,8 +39,25 @@ export default function Quiz() {
         console.log(res.data);
         setQuestion(res.data);
         setAnswer(res.answer);
+		getUser(num);
       })
       .catch((error) => console.log(error));
+  };
+
+  const getUser = (num) => {
+    axios
+      .get("/api/user", {
+        params: {
+          userId: userId,
+        },
+      })
+      .then((res) => {
+        setUserData(res.data);
+        console.log(res.data.answered[`q${num}`]);
+        if (res.data.answered[`q${num}`] != undefined && res.data.answered[`q${num}`] == true) {
+          setIsAnswerd(true);
+        }
+      });
   };
 
   const toAnswer = (e) => {
@@ -54,9 +71,12 @@ export default function Quiz() {
 
   return (
     <div className={styles.container}>
-      <p>{router.query.username}さんが解答中</p>
+      <p>{userData ? userData.userName : ""}さんが解答中</p>
       <button
-        style={{ display: userId ? "block" : "none", backgroundColor: "pink" }}
+        style={{
+          display: userId ? "block" : "none",
+          backgroundColor: "pink",
+        }}
       >
         <Link href={"/"}>回答者選択へ戻る</Link>
       </button>
@@ -66,7 +86,7 @@ export default function Quiz() {
         <p>{question.question}</p>
         <div
           style={{
-            display: isAnswerd && !question.question ? "none" : "block",
+            display: userData.answered=='' || isAnswerd || !question.question ? "none" : "block",
           }}
         >
           <ul className="answer-list">
@@ -100,7 +120,7 @@ export default function Quiz() {
             backgroundColor: "pink",
           }}
         >
-          問題を再表示
+          問題を表示
         </button>
         <p>※司会が合図をしてからしか次の問題には進めません</p>
       </main>

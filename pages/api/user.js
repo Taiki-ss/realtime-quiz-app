@@ -38,21 +38,36 @@ export default async function handler(req, res) {
       answered: "",
     };
 
-    await db
-      .collection(COLLECTION_NAME)
-      .get()
-      .then((response) => {
-        for (const doc of response.docs) {
-          if (doc.data().name === currentUser) {
-            data.docId = doc.id;
-            data.point = doc.data().point;
-            data.userName = doc.data().name;
-            data.answered = doc.data().answered;
-            break;
+    if (req.query.userId) {
+      await db
+        .collection(COLLECTION_NAME)
+        .doc(req.query.userId)
+        .get()
+        .then((response) => {
+			data.docId = req.query.userId;
+			data.point = response.data().point;
+			data.userName = response.data().name;
+			data.answered = response.data().answered;
+
+			res.status(200).json(data)
+		});
+    } else {
+      await db
+        .collection(COLLECTION_NAME)
+        .get()
+        .then((response) => {
+          for (const doc of response.docs) {
+            if (doc.data().name === currentUser) {
+              data.docId = doc.id;
+              data.point = doc.data().point;
+              data.userName = doc.data().name;
+              data.answered = doc.data().answered;
+              break;
+            }
           }
-        }
-        res.status(200).json(data);
-      });
+          res.status(200).json(data);
+        });
+    }
   }
 
   if (req.method === "POST") {
