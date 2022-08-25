@@ -33,6 +33,8 @@ export default function Home() {
   };
 
   const getUser = () => {
+    if (username === "") return;
+
     axios
       .get("/api/user", {
         params: {
@@ -44,7 +46,7 @@ export default function Home() {
         if (res.data.docId) {
           setUsername(res.data.userName);
           setUserId(res.data.docId);
-		  setUserPoint(res.data.point)
+          setUserPoint(res.data.point);
         } else {
           if (
             confirm(
@@ -64,7 +66,7 @@ export default function Home() {
         currentName: username,
       })
       .then((res) => {
-		console.log(res.data)
+        console.log(res.data);
         console.log("登録済み");
         getUser();
       })
@@ -91,8 +93,20 @@ export default function Home() {
           />
           <button onClick={() => getUser()}>決定</button>
 
-          <button style={{ display: userId ? "block" : "none" ,backgroundColor:"pink"}}>
-		<Link href={{pathname:"/quiz",query:{username:username,userId:userId}}}>クイズへ進む</Link>
+          <button
+            style={{
+              display: userId ? "block" : "none",
+              backgroundColor: "pink",
+            }}
+          >
+            <Link
+              href={{
+                pathname: "/quiz",
+                query: { username: username, userId: userId },
+              }}
+            >
+              クイズへ進む
+            </Link>
           </button>
         </div>
       </main>

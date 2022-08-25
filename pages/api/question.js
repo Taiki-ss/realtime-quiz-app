@@ -27,24 +27,23 @@ export default async function handler(req, res) {
     }
     if (req.query.param === "getQuestion") {
       await db
-        .collection('questions')
+        .collection("questions")
         .doc(`question${req.query.qNum}`)
         .get()
         .then((response) => {
-			console.log(response.data())
+          console.log(response.data());
           res.status(200).json(response.data());
         });
     }
-
   }
 
-//   if (req.method === "POST") {
-//     const updateData = {
-//       name: req.body.currentName,
-//       point: 0,
-//     };
-//     const docRef = await db.collection(COLLECTION_NAME).doc();
-//     const result = docRef.set(updateData);
-//     res.status(200).json(result);
-//   }
+  //   if (req.method === "POST") {
+  //     const updateData = {
+  //       name: req.body.currentName,
+  //       point: 0,
+  //     };
+  //     const docRef = await db.collection(COLLECTION_NAME).doc();
+  //     const result = docRef.set(updateData);
+  //     res.status(200).json(result);
+  //   }
 }
