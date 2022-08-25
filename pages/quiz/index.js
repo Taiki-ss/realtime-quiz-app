@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import styles from "../../styles/Home.module.css";
+import styles from "styles/Home.module.css";
 import axios from "axios";
 
 export default function Quiz() {

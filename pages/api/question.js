@@ -1,6 +1,6 @@
 const { getFirestore } = require("firebase-admin/firestore");
 const { cert } = require("firebase-admin/app");
-const serviceAccount = require("../../../FirebaseAdminSDK/steamship-gcp-firebase-adminsdk.json"); // 秘密鍵を取得
+const serviceAccount = require("FirebaseAdminSDK/steamship-gcp-firebase-adminsdk.json"); // 秘密鍵を取得
 const admin = require("firebase-admin");
 
 export default async function handler(req, res) {
