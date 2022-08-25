@@ -71,13 +71,25 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "POST") {
-    const updateData = {
-      name: req.body.currentName,
-      point: 0,
-      answered: { q1: false },
-    };
-    const docRef = await db.collection(COLLECTION_NAME).doc();
-    const result = docRef.set(updateData);
-    res.status(200).json(result);
+	if(req.body.userId){
+		const updateData = {
+			point: req.body.point,
+			answered: req.body.answered
+		}
+		const docRef = await db.collection(COLLECTION_NAME).doc(req.body.userId);
+		const result = docRef.set(updateData,{merge:true});
+		res.status(200).json(result);
+	} else {
+
+		
+		const updateData = {
+			name: req.body.currentName,
+			point: 0,
+			answered: { q1: false },
+		};
+		const docRef = await db.collection(COLLECTION_NAME).doc();
+		const result = docRef.set(updateData);
+		res.status(200).json(result);
+	}
   }
 }

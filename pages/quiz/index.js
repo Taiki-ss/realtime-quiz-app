@@ -39,7 +39,7 @@ export default function Quiz() {
         console.log(res.data);
         setQuestion(res.data);
         setAnswer(res.answer);
-		getUser(num);
+        getUser(num);
       })
       .catch((error) => console.log(error));
   };
@@ -52,9 +52,12 @@ export default function Quiz() {
         },
       })
       .then((res) => {
+        console.log(res.data);
         setUserData(res.data);
-        console.log(res.data.answered[`q${num}`]);
-        if (res.data.answered[`q${num}`] != undefined && res.data.answered[`q${num}`] == true) {
+        if (
+          res.data.answered[`q${num}`] != undefined &&
+          res.data.answered[`q${num}`] == true
+        ) {
           setIsAnswerd(true);
         }
       });
@@ -65,8 +68,28 @@ export default function Quiz() {
       confirm(
         `回答は「${e.target.value}」でよろしいですか？\n解答をやり直すことはできません`
       )
-    )
+    ) {
       setIsAnswerd(true);
+
+      const answeredData = userData.answered;
+      answeredData[`q${questionNum}`] = true;
+
+      axios
+        .post("/api/user", {
+          userId: userId,
+          answered: answeredData,
+          point:
+            question.answer === e.target.value
+              ? userData.point+1
+              : userData.point,
+        })
+        .then((res) => {
+			console.log(res)
+		})
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (
@@ -86,7 +109,10 @@ export default function Quiz() {
         <p>{question.question}</p>
         <div
           style={{
-            display: userData.answered=='' || isAnswerd || !question.question ? "none" : "block",
+            display:
+              userData.answered == "" || isAnswerd || !question.question
+                ? "none"
+                : "block",
           }}
         >
           <ul className="answer-list">
