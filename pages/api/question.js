@@ -1,6 +1,5 @@
 const { getFirestore } = require("firebase-admin/firestore");
 const { cert } = require("firebase-admin/app");
-const serviceAccount = require("FirebaseAdminSDK/steamship-gcp-firebase-adminsdk.json"); // 秘密鍵を取得
 const admin = require("firebase-admin");
 
 export default async function handler(req, res) {
@@ -8,7 +7,11 @@ export default async function handler(req, res) {
   //　初期化する
   if (admin.apps.length === 0) {
     admin.initializeApp({
-      credential: cert(serviceAccount),
+      credential: cert({
+        projectId: process.env.FSA_PROJECT_ID,
+        privateKey: process.env.FSA_PRIVATE_KEY.replace(/\\n/g, "\n"),
+        clientEmail: process.env.FSA_CLIENT_EMAIL,
+      }),
     });
   }
   const db = getFirestore();

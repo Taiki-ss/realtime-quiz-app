@@ -1,6 +1,5 @@
 const { getFirestore } = require("firebase-admin/firestore");
 const { cert } = require("firebase-admin/app");
-const serviceAccount = require("FirebaseAdminSDK/steamship-gcp-firebase-adminsdk.json"); // 秘密鍵を取得
 const admin = require("firebase-admin");
 
 export default async function handler(req, res) {
@@ -9,25 +8,16 @@ export default async function handler(req, res) {
   //　初期化する
   if (admin.apps.length === 0) {
     admin.initializeApp({
-      credential: cert(serviceAccount),
+      credential: cert({
+        projectId: process.env.FSA_PROJECT_ID,
+        privateKey: process.env.FSA_PRIVATE_KEY.replace(/\\n/g, "\n"),
+        clientEmail: process.env.FSA_CLIENT_EMAIL,
+      }),
     });
   }
   const db = getFirestore();
   let targetDoc = "",
     point = 0;
-
-  //   await db
-  //     .collection(COLLECTION_NAME)
-  //     .get()
-  //     .then((res) => {
-  //       for (const doc of res.docs) {
-  //         if (doc.data().name === currentUser) {
-  //           targetDoc = doc.id;
-  //           point = doc.data().point;
-  //           break;
-  //         }
-  //       }
-  //     });
 
   if (req.method === "GET") {
     const currentUser = req.query.currentName;
@@ -44,13 +34,13 @@ export default async function handler(req, res) {
         .doc(req.query.userId)
         .get()
         .then((response) => {
-			data.docId = req.query.userId;
-			data.point = response.data().point;
-			data.userName = response.data().name;
-			data.answered = response.data().answered;
+          data.docId = req.query.userId;
+          data.point = response.data().point;
+          data.userName = response.data().name;
+          data.answered = response.data().answered;
 
-			res.status(200).json(data)
-		});
+          res.status(200).json(data);
+        });
     } else {
       await db
         .collection(COLLECTION_NAME)
@@ -71,25 +61,23 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "POST") {
-	if(req.body.userId){
-		const updateData = {
-			point: req.body.point,
-			answered: req.body.answered
-		}
-		const docRef = await db.collection(COLLECTION_NAME).doc(req.body.userId);
-		const result = docRef.set(updateData,{merge:true});
-		res.status(200).json(result);
-	} else {
-
-		
-		const updateData = {
-			name: req.body.currentName,
-			point: 0,
-			answered: { q1: false },
-		};
-		const docRef = await db.collection(COLLECTION_NAME).doc();
-		const result = docRef.set(updateData);
-		res.status(200).json(result);
-	}
+    if (req.body.userId) {
+      const updateData = {
+        point: req.body.point,
+        answered: req.body.answered,
+      };
+      const docRef = await db.collection(COLLECTION_NAME).doc(req.body.userId);
+      const result = docRef.set(updateData, { merge: true });
+      res.status(200).json(result);
+    } else {
+      const updateData = {
+        name: req.body.currentName,
+        point: 0,
+        answered: { q1: false },
+      };
+      const docRef = await db.collection(COLLECTION_NAME).doc();
+      const result = docRef.set(updateData);
+      res.status(200).json(result);
+    }
   }
 }
