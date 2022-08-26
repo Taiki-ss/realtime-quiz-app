@@ -6,16 +6,15 @@ import axios from "axios";
 export default function Result() {
   const [showStatus, setShowStatus] = useState(false);
   const [result, setResult] = useState([]);
-  //   const [time, setTime] = useState(10);
-  const [time, setTime] = useState(0);
+    const [time, setTime] = useState(10);
 
-  //   useEffect(()=>{
-  // 	if(time>0 && showStatus){
-  // 		setTimeout(()=>{
-  // 			setTime(time-1)
-  // 		},1000)
-  // 	}
-  //   },[time,showStatus])
+    useEffect(()=>{
+  	if(time>0 && showStatus){
+  		setTimeout(()=>{
+  			setTime(time-1)
+  		},1000)
+  	}
+    },[time,showStatus])
 
   useEffect(() => {
     axios
