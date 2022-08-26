@@ -5,16 +5,17 @@ import axios from "axios";
 
 export default function Result() {
   const [showStatus, setShowStatus] = useState(false);
-  const [result, setResult] = useState({});
-  const [time, setTime] = useState(10);
+  const [result, setResult] = useState([]);
+  //   const [time, setTime] = useState(10);
+  const [time, setTime] = useState(0);
 
-  useEffect(()=>{
-	if(time>0 && showStatus){
-		setTimeout(()=>{
-			setTime(time-1)
-		},1000)
-	}
-  },[time,showStatus])
+  //   useEffect(()=>{
+  // 	if(time>0 && showStatus){
+  // 		setTimeout(()=>{
+  // 			setTime(time-1)
+  // 		},1000)
+  // 	}
+  //   },[time,showStatus])
 
   useEffect(() => {
     axios
@@ -36,11 +37,22 @@ export default function Result() {
       .catch((error) => console.log(error));
   }, []);
 
-  const menberList = Object.values(result).map((obj) => (
-        <li key={obj.name}>
-          {obj.name}：{obj.point}点
-        </li>
-      ));
+  const menberList = result.map((obj, i) => {
+	if(obj.member.length > 1){
+		return (
+			<li>
+				{obj.lank}位：{obj.member.join('、')}・・・{obj.point}点(同率{obj.member.length}人)
+			</li>
+		)
+	} else {
+		return (
+		  <li key={obj.name}>
+			{obj.lank}位：{obj.member}・・・{obj.point}点
+		  </li>
+		);
+	}
+
+  });
   console.log(result);
 
   return (
@@ -54,9 +66,11 @@ export default function Result() {
       </button>
       <main className={styles.main}>
         <h1 className={styles.title}>結果発表</h1>
-		<p>{showStatus && time>0 ? time+"秒" : ''}</p>
-        <p>{showStatus && time===0 ? "おめでとう！" : "まだ教えないよ〜ん"}</p>
-        <div style={{ display: showStatus && time===0 ? "block" : "none" }}>
+        <p>{showStatus && time > 0 ? time + "秒" : ""}</p>
+        <p>
+          {showStatus && time === 0 ? "おめでとう！" : "まだ教えないよ〜ん"}
+        </p>
+        <div style={{ display: showStatus && time === 0 ? "block" : "none" }}>
           <ul>{menberList}</ul>
         </div>
       </main>

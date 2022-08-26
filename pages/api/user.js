@@ -39,12 +39,27 @@ export default async function handler(req, res) {
           res.status(200).json(data);
         });
     } else if(req.query.getResult){
-		const result = {}
-		await db.collection(COLLECTION_NAME).orderBy('point','desc').limit(5).get().then(response=>{
+		const result = []
+		await db.collection(COLLECTION_NAME).orderBy('point','desc').get().then(response=>{
+			let lank = 1; 
+			let num = 0;
+			let maxPoint = 0;
 			response.docs.forEach((v,i)=>{
-				result[i] = {
-					name: v.data().name,
-					point: v.data().point
+				if(v.data().point === maxPoint){
+					result[num].member.push(v.data().name)
+					lank++;
+				} else {
+					if(i !== 0){
+						num ++;
+					}
+					maxPoint = v.data().point
+					
+					result[num] = {
+						lank: lank,
+						point: maxPoint,
+						member: [v.data().name]
+					}
+					lank++
 				}
 			})
 
