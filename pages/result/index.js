@@ -6,6 +6,15 @@ import axios from "axios";
 export default function Result() {
   const [showStatus, setShowStatus] = useState(false);
   const [result, setResult] = useState({});
+  const [time, setTime] = useState(10);
+
+  useEffect(()=>{
+	if(time>0 && showStatus){
+		setTimeout(()=>{
+			setTime(time-1)
+		},1000)
+	}
+  },[time,showStatus])
 
   useEffect(() => {
     axios
@@ -45,8 +54,9 @@ export default function Result() {
       </button>
       <main className={styles.main}>
         <h1 className={styles.title}>結果発表</h1>
-        <p>{showStatus ? "おめでとう！" : "まだ教えないよ〜ん"}</p>
-        <div style={{ display: showStatus ? "block" : "none" }}>
+		<p>{showStatus && time>0 ? time+"秒" : ''}</p>
+        <p>{showStatus && time===0 ? "おめでとう！" : "まだ教えないよ〜ん"}</p>
+        <div style={{ display: showStatus && time===0 ? "block" : "none" }}>
           <ul>{menberList}</ul>
         </div>
       </main>
