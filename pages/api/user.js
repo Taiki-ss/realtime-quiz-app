@@ -4,7 +4,6 @@ const admin = require("firebase-admin");
 
 export default async function handler(req, res) {
   const COLLECTION_NAME = "users";
-  //   const currentUser = "Wakai";
   //　初期化する
   if (admin.apps.length === 0) {
     admin.initializeApp({
@@ -16,8 +15,6 @@ export default async function handler(req, res) {
     });
   }
   const db = getFirestore();
-  let targetDoc = "",
-    point = 0;
 
   if (req.method === "GET") {
     const currentUser = req.query.currentName;

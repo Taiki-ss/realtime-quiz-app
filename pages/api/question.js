@@ -40,13 +40,4 @@ export default async function handler(req, res) {
     }
   }
 
-  //   if (req.method === "POST") {
-  //     const updateData = {
-  //       name: req.body.currentName,
-  //       point: 0,
-  //     };
-  //     const docRef = await db.collection(COLLECTION_NAME).doc();
-  //     const result = docRef.set(updateData);
-  //     res.status(200).json(result);
-  //   }
 }

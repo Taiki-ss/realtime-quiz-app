@@ -21,7 +21,6 @@ export default function Quiz() {
     axios
       .get("/api/question", { params: { param: "currentNum" } })
       .then((res) => {
-        console.log(res.data);
         if (questionNum != res.data) {
           setIsAnswerd(false);
         }
@@ -36,7 +35,6 @@ export default function Quiz() {
         params: { param: "getQuestion", qNum: num },
       })
       .then((res) => {
-        console.log(res.data);
         setQuestion(res.data);
         setAnswer(res.answer);
         getUser(num);

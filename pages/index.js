@@ -7,23 +7,6 @@ export default function Home() {
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
   const [userPoint, setUserPoint] = useState(0);
-  useEffect(() => {
-    // axios
-    //   .get("/api/user",{
-    // 	params: {
-    // 		currentName: "Wakai"
-    // 	}
-    //   })
-    //   .then((res) => {
-    //     setUsername(res.data.userName);
-    // 	console.log(res.data)
-    //   })
-    //   .catch((error) => console.log(error));
-  }, []);
-
-  const updateUser = async () => {
-    await axios.post("/api/user");
-  };
 
   const handleChange = (e) => {
     setUsername(e.target.value);
