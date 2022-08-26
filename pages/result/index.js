@@ -6,15 +6,16 @@ import axios from "axios";
 export default function Result() {
   const [showStatus, setShowStatus] = useState(false);
   const [result, setResult] = useState([]);
-    const [time, setTime] = useState(10);
+    // const [time, setTime] = useState(10);
+    const [time, setTime] = useState(0);
 
-    useEffect(()=>{
-  	if(time>0 && showStatus){
-  		setTimeout(()=>{
-  			setTime(time-1)
-  		},1000)
-  	}
-    },[time,showStatus])
+    // useEffect(()=>{
+  	// if(time>0 && showStatus){
+  	// 	setTimeout(()=>{
+  	// 		setTime(time-1)
+  	// 	},1000)
+  	// }
+    // },[time,showStatus])
 
   useEffect(() => {
     axios
@@ -36,20 +37,13 @@ export default function Result() {
       .catch((error) => console.log(error));
   }, []);
 
-  const menberList = result.map((obj, i) => {
-	if(obj.member.length > 1){
+  const menberList = result.map((obj) => {
+
+	return (obj.member.map(mem => {
 		return (
-			<li>
-				{obj.lank}位：{obj.member.join('、')}・・・{obj.point}点(同率{obj.member.length}人)
-			</li>
+			<li key={mem}>{obj.lank}位：{mem}・・・{obj.point}点</li>
 		)
-	} else {
-		return (
-		  <li key={obj.name}>
-			{obj.lank}位：{obj.member}・・・{obj.point}点
-		  </li>
-		);
-	}
+	}))
 
   });
   console.log(result);
