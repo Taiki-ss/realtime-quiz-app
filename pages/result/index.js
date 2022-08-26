@@ -5,15 +5,34 @@ import axios from "axios";
 
 export default function Result() {
   const [showStatus, setShowStatus] = useState(false);
+  const [result, setResult] = useState({});
 
   useEffect(() => {
     axios
       .get("/api/result")
       .then((res) => {
-		setShowStatus(res.data)
+        setShowStatus(res.data);
+      })
+      .catch((error) => console.log(error));
+
+    axios
+      .get("/api/user", {
+        params: {
+          getResult: true,
+        },
+      })
+      .then((res) => {
+        setResult(res.data);
       })
       .catch((error) => console.log(error));
   }, []);
+
+  const menberList = Object.values(result).map((obj) => (
+        <li key={obj.name}>
+          {obj.name}：{obj.point}点
+        </li>
+      ));
+  console.log(result);
 
   return (
     <div className={styles.container}>
@@ -26,7 +45,10 @@ export default function Result() {
       </button>
       <main className={styles.main}>
         <h1 className={styles.title}>結果発表</h1>
-		<p>{showStatus ? '結果が出てます' : '結果は出てません'}</p>
+        <p>{showStatus ? "おめでとう！" : "まだ教えないよ〜ん"}</p>
+        <div style={{ display: showStatus ? "block" : "none" }}>
+          <ul>{menberList}</ul>
+        </div>
       </main>
     </div>
   );

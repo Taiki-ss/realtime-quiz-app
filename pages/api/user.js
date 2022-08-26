@@ -38,7 +38,19 @@ export default async function handler(req, res) {
 
           res.status(200).json(data);
         });
-    } else {
+    } else if(req.query.getResult){
+		const result = {}
+		await db.collection(COLLECTION_NAME).orderBy('point','desc').limit(5).get().then(response=>{
+			response.docs.forEach((v,i)=>{
+				result[i] = {
+					name: v.data().name,
+					point: v.data().point
+				}
+			})
+
+			res.status(200).json(result)
+		})
+	} else {
       await db
         .collection(COLLECTION_NAME)
         .get()
