@@ -23,6 +23,7 @@ export default function Home() {
         },
       })
       .then((res) => {
+        console.log("get");
         console.log(res.data);
         if (res.data.docId) {
           setUsername(res.data.userName);
@@ -47,6 +48,7 @@ export default function Home() {
         currentName: username,
       })
       .then((res) => {
+        console.log("post");
         console.log(res.data);
         console.log("登録済み");
         getUser();
