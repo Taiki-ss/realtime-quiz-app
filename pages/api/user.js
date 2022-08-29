@@ -3,7 +3,8 @@ const { cert } = require("firebase-admin/app");
 const admin = require("firebase-admin");
 
 export default async function handler(req, res) {
-  const COLLECTION_NAME = "users";
+//   const COLLECTION_NAME = "users";
+  const COLLECTION_NAME = "testUsers";
   //　初期化する
   if (admin.apps.length === 0) {
     admin.initializeApp({
@@ -90,8 +91,7 @@ export default async function handler(req, res) {
         point: req.body.point,
         answered: req.body.answered,
       };
-      const docRef = await db.collection(COLLECTION_NAME).doc(req.body.userId);
-      const result = docRef.set(updateData, { merge: true });
+      const result = await db.collection(COLLECTION_NAME).doc(req.body.userId).set(updateData, { merge: true });;
       res.status(200).json(result);
     } else {
       const updateData = {
@@ -99,8 +99,7 @@ export default async function handler(req, res) {
         point: 0,
         answered: { q1: false },
       };
-      const docRef = await db.collection(COLLECTION_NAME).doc();
-      const result = docRef.set(updateData);
+      const result = await db.collection(COLLECTION_NAME).doc().set(updateData);
       res.status(200).json(result);
     }
   }
