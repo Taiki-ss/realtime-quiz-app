@@ -41,7 +41,7 @@ export default function Result() {
 
 	return (obj.member.map(mem => {
 		return (
-			<li key={mem}>{obj.lank}位：{mem}・・・{obj.point}点</li>
+			<li key={mem.name}>{obj.lank}位：{mem.name}({mem.porto}{mem.role})・・・{obj.point}点</li>
 		)
 	}))
 

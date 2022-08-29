@@ -3,7 +3,7 @@ const { cert } = require("firebase-admin/app");
 const admin = require("firebase-admin");
 
 export default async function handler(req, res) {
-  //   const COLLECTION_NAME = "users";
+  // const COLLECTION_NAME = "users";
   const COLLECTION_NAME = "testUsers";
   //　初期化する
   if (admin.apps.length === 0) {
@@ -57,7 +57,11 @@ export default async function handler(req, res) {
           let maxPoint = 0;
           response.docs.forEach((v, i) => {
             if (v.data().point === maxPoint) {
-              result[num].member.push(v.data().name);
+              result[num].member.push({
+                name: v.data().name,
+                porto: v.data().porto,
+                role: v.data().role,
+              });
               lank++;
             } else {
               if (i !== 0) {
@@ -68,7 +72,13 @@ export default async function handler(req, res) {
               result[num] = {
                 lank: lank,
                 point: maxPoint,
-                member: [v.data().name],
+                member: [
+                  {
+                    name: v.data().name,
+                    porto: v.data().porto,
+                    role: v.data().role,
+                  },
+                ],
               };
               lank++;
             }
