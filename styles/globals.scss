@@ -15,6 +15,12 @@ a {
   box-sizing: border-box;
 }
 
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     /* color-scheme: dark; */
@@ -25,53 +31,60 @@ a {
   }
 
   button {
-	padding: 4px 24px;
-	background-color: lightgreen;
-	color: gray;
-	border: none;
-	border-radius: 4px;
-	font-size: 16px;
-	margin: 8px;
-	cursor: pointer;
+    padding: 4px 24px;
+    background-color: lightgreen;
+    color: gray;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin: 8px;
+    cursor: pointer;
   }
+}
+h1 {
+  font-size: 20px;
 }
 
 .answer-list {
-	padding: 0;
-	display: flex;
-	list-style: none;
+  padding: 0;
+  display: flex;
+  list-style: none;
+}
+
+.input-container {
+  background-color: lightgray;
+  padding: 2rem;
 }
 
 .input-name {
-	margin-bottom: 18px;
-	input {
-		width: 100%;
-		padding: 4px;
-		font-size: 20px;
-	}
+  margin-bottom: 18px;
+  input {
+    width: 100%;
+    padding: 4px;
+    font-size: 20px;
+  }
 }
 
 .input-porto {
-	margin-bottom: 18px;
-	select {
-		width: 100%;
-		padding: 4px;
-	}
-	option {
-		padding: 4px;
-		font-size: 24px;
-	}
+  margin-bottom: 18px;
+  select {
+    width: 100%;
+    padding: 4px;
+	font-size: 20px;
+  }
+  option {
+    padding: 4px;
+  }
 }
 
 .input-role {
-	padding-bottom: 18px;
-	select {
-		width: 100%;
-		padding: 4px;
-	}
-	option {
-		padding: 4px;
-		font-size: 24px;
-	}
-
+  padding-bottom: 18px;
+  select {
+    width: 100%;
+    padding: 4px;
+	font-size: 20px;
+  }
+  option {
+    padding: 4px;
+  }
 }
