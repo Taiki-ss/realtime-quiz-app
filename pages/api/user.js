@@ -55,14 +55,17 @@ export default async function handler(req, res) {
           let lank = 1;
           let num = 0;
           let maxPoint = 0;
+		  let count = 0;
           response.docs.forEach((v, i) => {
             if (v.data().point === maxPoint) {
               result[num].member.push({
                 name: v.data().name,
                 porto: v.data().porto,
                 role: v.data().role,
+				count: count,
               });
               lank++;
+			  count++
             } else {
               if (i !== 0) {
                 num++;
@@ -77,10 +80,12 @@ export default async function handler(req, res) {
                     name: v.data().name,
                     porto: v.data().porto,
                     role: v.data().role,
+					count: count,
                   },
                 ],
               };
               lank++;
+			  count++;
             }
           });
 
