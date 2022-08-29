@@ -3,7 +3,7 @@ const { cert } = require("firebase-admin/app");
 const admin = require("firebase-admin");
 
 export default async function handler(req, res) {
-//   const COLLECTION_NAME = "users";
+  //   const COLLECTION_NAME = "users";
   const COLLECTION_NAME = "testUsers";
   //　初期化する
   if (admin.apps.length === 0) {
@@ -22,6 +22,8 @@ export default async function handler(req, res) {
     const data = {
       docId: "",
       userName: "",
+      porto: "",
+      role: "",
       point: "",
       answered: "",
     };
@@ -35,38 +37,44 @@ export default async function handler(req, res) {
           data.docId = req.query.userId;
           data.point = response.data().point;
           data.userName = response.data().name;
+          data.porto = response.data().porto;
+          data.role = response.data().role;
           data.answered = response.data().answered;
 
           res.status(200).json(data);
         });
-    } else if(req.query.getResult){
-		const result = []
-		await db.collection(COLLECTION_NAME).orderBy('point','desc').get().then(response=>{
-			let lank = 1; 
-			let num = 0;
-			let maxPoint = 0;
-			response.docs.forEach((v,i)=>{
-				if(v.data().point === maxPoint){
-					result[num].member.push(v.data().name)
-					lank++;
-				} else {
-					if(i !== 0){
-						num ++;
-					}
-					maxPoint = v.data().point
-					
-					result[num] = {
-						lank: lank,
-						point: maxPoint,
-						member: [v.data().name]
-					}
-					lank++
-				}
-			})
+    } else if (req.query.getResult) {
+      const result = [];
+      await db
+        .collection(COLLECTION_NAME)
+        .orderBy("point", "desc")
+        .get()
+        .then((response) => {
+          let lank = 1;
+          let num = 0;
+          let maxPoint = 0;
+          response.docs.forEach((v, i) => {
+            if (v.data().point === maxPoint) {
+              result[num].member.push(v.data().name);
+              lank++;
+            } else {
+              if (i !== 0) {
+                num++;
+              }
+              maxPoint = v.data().point;
 
-			res.status(200).json(result)
-		})
-	} else {
+              result[num] = {
+                lank: lank,
+                point: maxPoint,
+                member: [v.data().name],
+              };
+              lank++;
+            }
+          });
+
+          res.status(200).json(result);
+        });
+    } else {
       await db
         .collection(COLLECTION_NAME)
         .get()
@@ -76,6 +84,8 @@ export default async function handler(req, res) {
               data.docId = doc.id;
               data.point = doc.data().point;
               data.userName = doc.data().name;
+              data.porto = doc.data().porto;
+              data.role = doc.data().role;
               data.answered = doc.data().answered;
               break;
             }
@@ -91,11 +101,16 @@ export default async function handler(req, res) {
         point: req.body.point,
         answered: req.body.answered,
       };
-      const result = await db.collection(COLLECTION_NAME).doc(req.body.userId).set(updateData, { merge: true });;
+      const result = await db
+        .collection(COLLECTION_NAME)
+        .doc(req.body.userId)
+        .set(updateData, { merge: true });
       res.status(200).json(result);
     } else {
       const updateData = {
         name: req.body.currentName,
+        porto: req.body.porto,
+        role: req.body.role,
         point: 0,
         answered: { q1: false },
       };

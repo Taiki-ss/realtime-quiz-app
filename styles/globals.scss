@@ -41,3 +41,37 @@ a {
 	display: flex;
 	list-style: none;
 }
+
+.input-name {
+	margin-bottom: 18px;
+	input {
+		width: 100%;
+		padding: 4px;
+		font-size: 20px;
+	}
+}
+
+.input-porto {
+	margin-bottom: 18px;
+	select {
+		width: 100%;
+		padding: 4px;
+	}
+	option {
+		padding: 4px;
+		font-size: 24px;
+	}
+}
+
+.input-role {
+	padding-bottom: 18px;
+	select {
+		width: 100%;
+		padding: 4px;
+	}
+	option {
+		padding: 4px;
+		font-size: 24px;
+	}
+
+}
