@@ -11,10 +11,10 @@ export default function Home() {
   const [userPoint, setUserPoint] = useState(0);
 
   const getUser = () => {
-    if (username === "" || porto === "" || role === ""){
-		alert('名前、ポルト、職種を選択してから再度決定を押してください。')
-		return;
-	};
+    if (username === "" || porto === "" || role === "") {
+      alert("名前、ポルト、職種を選択してから再度決定を押してください。");
+      return;
+    }
 
     axios
       .get("/api/user", {
@@ -78,46 +78,54 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1 className={styles.title}>エンジニア王はきみだ！</h1>
+        <h1 className={styles.title}>
+          エンジニア王は
+          <br />
+          きみだ！
+        </h1>
 
         <div>
           <h2>
             登録:{userId ? "登録済み" : "未登録"}
             <br />
-            {porto ? porto : "無所属"}の{role ? role : ""}「
-            {username ? username : ""}」
+            {porto ? porto : "無所属"}の{role ? role : ""}
+            <br />「{username ? username : ""}」
           </h2>
-          <p>登録している名前を入力してください</p>
-          <div className="input-name">
-            <input
-              placeholder="空白なしフルネーム"
-              value={username}
-              onChange={nameChange}
-            />
-          </div>
-          <div className="input-porto">
-            <select onChange={portoChange}>
-              <option value="">所属ポルト</option>
-              <option value="はさぽる">はさぽる</option>
-              <option value="ありぽる">ありぽる</option>
-              <option value="よしぽる">よしぽる</option>
-              <option value="でじぽる">でじぽる</option>
-              <option value="いとぽる">いとぽる</option>
-              <option value="ときぽる">ときぽる</option>
-              <option value="いえぽる">いえぽる</option>
-              <option value="どこぽる？">どこぽる？</option>
-            </select>
-          </div>
-          <div className="input-role">
-            <select onChange={roleChange}>
-              <option value="">職種</option>
-              <option value="キャプテン">キャプテン</option>
-              <option value="キャプテンルーム">キャプテンルーム</option>
-              <option value="ディレクター">ディレクター</option>
-              <option value="ディレクターサポート">ディレクターサポート</option>
-              <option value="カスタマーサポート">カスタマーサポート</option>
-              <option value="デザイナー">デザイナー</option>
-            </select>
+          <div className="input-container">
+            <p>登録している名前を入力してください</p>
+            <div className="input-name">
+              <input
+                placeholder="空白なしフルネーム"
+                value={username}
+                onChange={nameChange}
+              />
+            </div>
+            <div className="input-porto">
+              <select onChange={portoChange}>
+                <option value="">所属ポルト</option>
+                <option value="はさぽる">はさぽる</option>
+                <option value="ありぽる">ありぽる</option>
+                <option value="よしぽる">よしぽる</option>
+                <option value="でじぽる">でじぽる</option>
+                <option value="いとぽる">いとぽる</option>
+                <option value="ときぽる">ときぽる</option>
+                <option value="いえぽる">いえぽる</option>
+                <option value="どこぽる？">どこぽる？</option>
+              </select>
+            </div>
+            <div className="input-role">
+              <select onChange={roleChange}>
+                <option value="">職種</option>
+                <option value="キャプテン">キャプテン</option>
+                <option value="キャプテンルーム">キャプテンルーム</option>
+                <option value="ディレクター">ディレクター</option>
+                <option value="ディレクターサポート">
+                  ディレクターサポート
+                </option>
+                <option value="カスタマーサポート">カスタマーサポート</option>
+                <option value="デザイナー">デザイナー</option>
+              </select>
+            </div>
           </div>
 
           <button
