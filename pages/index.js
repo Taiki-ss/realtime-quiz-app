@@ -20,6 +20,8 @@ export default function Home() {
       .get("/api/user", {
         params: {
           currentName: username,
+		  porto: porto,
+		  role: role
         },
       })
       .then((res) => {

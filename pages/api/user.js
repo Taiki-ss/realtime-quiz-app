@@ -19,6 +19,8 @@ export default async function handler(req, res) {
 
   if (req.method === "GET") {
     const currentUser = req.query.currentName;
+    const porto = req.query.porto;
+    const role = req.query.role;
     const data = {
       docId: "",
       userName: "",
@@ -80,7 +82,11 @@ export default async function handler(req, res) {
         .get()
         .then((response) => {
           for (const doc of response.docs) {
-            if (doc.data().name === currentUser) {
+            if (
+              doc.data().name === currentUser &&
+              doc.data().porto === porto &&
+              doc.data().role === role
+            ) {
               data.docId = doc.id;
               data.point = doc.data().point;
               data.userName = doc.data().name;
