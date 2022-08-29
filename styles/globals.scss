@@ -90,8 +90,26 @@ h1 {
 }
 
 .member-list {
+	position: absolute;
+	bottom: 24px;
+	left: 50%;
+	transform: translateX(-50%);
 	border-collapse: collapse;
-	width: 100%;
+	width: 80%;
+	// height: 40%;
+	overflow: scroll;
+	background-color: aqua;
+	tbody {
+		height: 100%;
+		overflow: scroll;
+		// display: flex;
+		// flex-direction: column;
+		// justify-content: flex-end;
+	}
+	tr {
+		display: none;
+		width: 100%;
+	}
 	td {
 		margin: 2px 0;
 		padding: 4px;
@@ -101,6 +119,8 @@ h1 {
 	}
 
 	&-wrapper {
+		overflow: scroll;
 		width: 90%;
+		max-height: 100%;
 	}
 }
