@@ -67,12 +67,13 @@ export default function Result() {
   });
 
   const showRanking = () => {
+	const showNum = 20;
     document.querySelectorAll(".late").forEach((v) => {
       v.style.display = "none";
     });
     const length = document.querySelectorAll(".late").length;
-    let kaisuu = Math.floor(length / 10);
-    let amari = length % 10;
+    let kaisuu = Math.floor(length / showNum);
+    let amari = length % showNum;
 
     if (document.querySelectorAll(".rank1").length + 2 > top5count) {
       setTop5count(document.querySelectorAll(".rank1").length + 2);
@@ -82,7 +83,7 @@ export default function Result() {
     console.log(amari);
     if (!amariDelete && amari !== 0) {
       let time = 0;
-      for (let i = 10 * kaisuu + amari - 1; i >= 10 * kaisuu; i--) {
+      for (let i = showNum * kaisuu + amari - 1; i >= showNum * kaisuu; i--) {
         setTimeout(() => {
           document.querySelector(`.late[data-count="${i}"]`).style.display =
             "table-row";
@@ -96,8 +97,8 @@ export default function Result() {
     if (kaisuu - showcount > 1) {
       let time = 0;
       for (
-        let i = 10 * (kaisuu - showcount) - 1;
-        i >= 10 * (kaisuu - showcount - 1);
+        let i = showNum * (kaisuu - showcount) - 1;
+        i >= showNum * (kaisuu - showcount - 1);
         i--
       ) {
         setTimeout(() => {
@@ -113,8 +114,8 @@ export default function Result() {
     if (kaisuu - showcount === 1) {
       let time = 0;
       for (
-        let i = 10 * (kaisuu - showcount) - 1;
-        i >= 10 * (kaisuu - showcount - 1) + top5count;
+        let i = showNum * (kaisuu - showcount) - 1;
+        i >= showNum * (kaisuu - showcount - 1) + top5count;
         i--
       ) {
         setTimeout(() => {
