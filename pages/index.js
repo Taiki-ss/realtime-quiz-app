@@ -45,7 +45,23 @@ export default function Home() {
               porto: porto,
               role: role,
               point: 0,
-              answered: { q1: false },
+              answered: {
+                q1: 'F',
+                q2: 'F',
+                q3: 'F',
+                q4: 'F',
+                q5: 'F',
+                q6: 'F',
+                q7: 'F',
+                q8: 'F',
+                q9: 'F',
+                q10: 'F',
+                q11: 'F',
+                q12: 'F',
+                q13: 'F',
+                q14: 'F',
+                q15: 'F',
+              },
             })
             .then((response) => {
               console.log(response.id);
