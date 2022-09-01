@@ -42,7 +42,7 @@ export default function Quiz() {
           setIsAnswerd(res.data().answered[`q` + questionNum]);
         }
       });
-  }, [questionNum]);
+  }, [questionNum,userId]);
 
   const toAnswer = async (e) => {
     if (
