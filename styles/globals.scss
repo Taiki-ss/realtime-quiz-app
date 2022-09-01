@@ -21,25 +21,15 @@ select {
   appearance: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    /* color-scheme: dark; */
-  }
-  body {
-    /* color: white; */
-    /* background: black; */
-  }
-
-  button {
-    padding: 4px 24px;
-    background-color: lightgreen;
-    color: gray;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    margin: 8px;
-    cursor: pointer;
-  }
+button {
+  padding: 4px 24px;
+  background-color: lightgreen;
+  color: gray;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  margin: 8px;
+  cursor: pointer;
 }
 h1 {
   font-size: 20px;
@@ -70,7 +60,7 @@ h1 {
   select {
     width: 100%;
     padding: 4px;
-	font-size: 20px;
+    font-size: 20px;
   }
   option {
     padding: 4px;
@@ -82,7 +72,7 @@ h1 {
   select {
     width: 100%;
     padding: 4px;
-	font-size: 20px;
+    font-size: 20px;
   }
   option {
     padding: 4px;
@@ -90,37 +80,37 @@ h1 {
 }
 
 .member-list {
-	position: absolute;
-	bottom: 10%;
-	left: 50%;
-	transform: translateX(-50%);
-	border-collapse: collapse;
-	width: 80%;
-	// height: 40%;
-	overflow: scroll;
-	background-color: aqua;
-	tbody {
-		height: 100%;
-		overflow: scroll;
-		// display: flex;
-		// flex-direction: column;
-		// justify-content: flex-end;
-	}
-	tr {
-		display: none;
-		width: 100%;
-	}
-	td {
-		margin: 2px 0;
-		padding: 4px;
-		list-style: none;
-		border: solid 1px;
-		font-size: 20px;
-	}
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-collapse: collapse;
+  width: 80%;
+  // height: 40%;
+  overflow: scroll;
+  background-color: aqua;
+  tbody {
+    height: 100%;
+    overflow: scroll;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: flex-end;
+  }
+  tr {
+    display: none;
+    width: 100%;
+  }
+  td {
+    margin: 2px 0;
+    padding: 4px;
+    list-style: none;
+    border: solid 1px;
+    font-size: 20px;
+  }
 
-	&-wrapper {
-		overflow: scroll;
-		width: 90%;
-		max-height: 100%;
-	}
+  &-wrapper {
+    overflow: scroll;
+    width: 90%;
+    max-height: 100%;
+  }
 }
