@@ -11,64 +11,64 @@ export default function Result() {
   const [top5, setTop5] = useState(false);
   const [top5count, setTop5count] = useState(5);
 
-  useEffect(() => {
-    db.collection("result")
-      .doc("status")
-      .onSnapshot(async (snapshot) => {
-        setShowStatus(snapshot.data().show);
-		console.log(showStatus)
-      });
-  }, []);
+  // useEffect(() => {
+  //   db.collection("result")
+  //     .doc("status")
+  //     .onSnapshot(async (snapshot) => {
+  //       setShowStatus(snapshot.data().show);
+	// 	console.log(showStatus)
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    (async () => {
-      const rankingArr = [];
-      await db
-        .collection("testUsers")
-        .orderBy("point", "desc")
-        .get()
-        .then((res) => {
-          let lank = 1;
-          let num = 0;
-          let maxPoint = 0;
-          let count = 0;
-          res.docs.forEach((v, i) => {
-            if (v.data().point === maxPoint) {
-              rankingArr[num].member.push({
-                name: v.data().name,
-                porto: v.data().porto,
-                role: v.data().role,
-                count: count,
-              });
-              lank++;
-              count++;
-            } else {
-              if (i !== 0) {
-                num++;
-              }
-              maxPoint = v.data().point;
+  // useEffect(() => {
+  //   (async () => {
+  //     const rankingArr = [];
+  //     await db
+  //       .collection("testUsers")
+  //       .orderBy("point", "desc")
+  //       .get()
+  //       .then((res) => {
+  //         let lank = 1;
+  //         let num = 0;
+  //         let maxPoint = 0;
+  //         let count = 0;
+  //         res.docs.forEach((v, i) => {
+  //           if (v.data().point === maxPoint) {
+  //             rankingArr[num].member.push({
+  //               name: v.data().name,
+  //               porto: v.data().porto,
+  //               role: v.data().role,
+  //               count: count,
+  //             });
+  //             lank++;
+  //             count++;
+  //           } else {
+  //             if (i !== 0) {
+  //               num++;
+  //             }
+  //             maxPoint = v.data().point;
 
-              rankingArr[num] = {
-                lank: lank,
-                point: maxPoint,
-                member: [
-                  {
-                    name: v.data().name,
-                    porto: v.data().porto,
-                    role: v.data().role,
-                    count: count,
-                  },
-                ],
-              };
-              lank++;
-              count++;
-            }
-          });
-          setResult(rankingArr);
-        });
-    })();
+  //             rankingArr[num] = {
+  //               lank: lank,
+  //               point: maxPoint,
+  //               member: [
+  //                 {
+  //                   name: v.data().name,
+  //                   porto: v.data().porto,
+  //                   role: v.data().role,
+  //                   count: count,
+  //                 },
+  //               ],
+  //             };
+  //             lank++;
+  //             count++;
+  //           }
+  //         });
+  //         setResult(rankingArr);
+  //       });
+  //   })();
 
-  }, []);
+  // }, []);
 
   const menberList = result.map((obj) => {
     return obj.member.map((mem) => {
@@ -192,7 +192,22 @@ export default function Result() {
                 <th>職種</th>
                 <th>得点</th>
               </tr>
-              {menberList}
+              <tr className="late" data-count="1"><td>1位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>25点</td></tr>
+              <tr className="late" data-count="1"><td>1位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>25点</td></tr>
+              <tr className="late" data-count="1"><td>1位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>25点</td></tr>
+              <tr className="late" data-count="1"><td>4位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>23点</td></tr>
+              <tr className="late" data-count="1"><td>5位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>22点</td></tr>
+              <tr className="late" data-count="1"><td>6位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>21点</td></tr>
+              <tr className="late" data-count="1"><td>7位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>20点</td></tr>
+              <tr className="late" data-count="1"><td>8位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>19点</td></tr>
+              <tr className="late" data-count="1"><td>9位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>17点</td></tr>
+              <tr className="late" data-count="1"><td>9位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>15点</td></tr>
+              <tr className="late" data-count="1"><td>11位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>14点</td></tr>
+              <tr className="late" data-count="1"><td>12位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>13点</td></tr>
+              <tr className="late" data-count="1"><td>13位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>11点</td></tr>
+              <tr className="late" data-count="1"><td>14位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>10点</td></tr>
+              <tr className="late" data-count="1"><td>14位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>10点</td></tr>
+              <tr className="late" data-count="1"><td>14位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>10点</td></tr>
             </tbody>
           </table>
         </div>
