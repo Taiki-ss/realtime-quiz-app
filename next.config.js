@@ -8,7 +8,7 @@ module.exports = {
     includePaths: [path.join(__dirname, "styles")],
   },
   trailingSlash: true,
-  assetPrefix: "/engineer-king/out",
+  assetPrefix: "./",
   async rewrites() {
     return [
       {
