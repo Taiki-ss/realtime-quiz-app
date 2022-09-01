@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "styles/Home.module.scss";
-import axios from "axios";
+import { db } from "firebase/firebase_init";
 
 export default function Result() {
   const [showStatus, setShowStatus] = useState(false);
@@ -10,42 +10,64 @@ export default function Result() {
   const [amariDelete, setAmariDelete] = useState(false);
   const [top5, setTop5] = useState(false);
   const [top5count, setTop5count] = useState(5);
-  // const [time, setTime] = useState(10);
-  const [time, setTime] = useState(0);
-
-  // useEffect(()=>{
-  // if(time>0 && showStatus){
-  // 	setTimeout(()=>{
-  // 		setTime(time-1)
-  // 	},1000)
-  // }
-  // },[time,showStatus])
-
-  const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
-
-  const test = async () => {
-    await sleep(3000);
-    console.log("表示");
-  };
 
   useEffect(() => {
-    axios
-      .get("/api/result")
-      .then((res) => {
-        setShowStatus(res.data);
-      })
-      .catch((error) => console.log(error));
+    db.collection("result")
+      .doc("status")
+      .onSnapshot(async (snapshot) => {
+        setShowStatus(snapshot.data().show);
+		console.log(showStatus)
+      });
+  }, []);
 
-    axios
-      .get("/api/user", {
-        params: {
-          getResult: true,
-        },
-      })
-      .then((res) => {
-        setResult(res.data);
-      })
-      .catch((error) => console.log(error));
+  useEffect(() => {
+    (async () => {
+      const rankingArr = [];
+      await db
+        .collection("testUsers")
+        .orderBy("point", "desc")
+        .get()
+        .then((res) => {
+          let lank = 1;
+          let num = 0;
+          let maxPoint = 0;
+          let count = 0;
+          res.docs.forEach((v, i) => {
+            if (v.data().point === maxPoint) {
+              rankingArr[num].member.push({
+                name: v.data().name,
+                porto: v.data().porto,
+                role: v.data().role,
+                count: count,
+              });
+              lank++;
+              count++;
+            } else {
+              if (i !== 0) {
+                num++;
+              }
+              maxPoint = v.data().point;
+
+              rankingArr[num] = {
+                lank: lank,
+                point: maxPoint,
+                member: [
+                  {
+                    name: v.data().name,
+                    porto: v.data().porto,
+                    role: v.data().role,
+                    count: count,
+                  },
+                ],
+              };
+              lank++;
+              count++;
+            }
+          });
+          setResult(rankingArr);
+        });
+    })();
+
   }, []);
 
   const menberList = result.map((obj) => {
@@ -67,7 +89,7 @@ export default function Result() {
   });
 
   const showRanking = () => {
-	const showNum = 20;
+    const showNum = 20;
     document.querySelectorAll(".late").forEach((v) => {
       v.style.display = "none";
     });
@@ -151,17 +173,15 @@ export default function Result() {
         <Link href={"/"}>TOPへ戻る</Link>
       </button>
 
-      <button onClick={showRanking}>ランキング表示</button>
-      <button onClick={showTop5}>TOP５くらい表示</button>
+      <button onClick={showRanking} style={{ display: showStatus ? "block" : "none" }}>ランキング表示</button>
+      <button onClick={showTop5} style={{ display: showStatus ? "block" : "none" }}>TOP５くらい表示</button>
       <main className={styles.main}>
         <h1 className={styles.title}>結果発表</h1>
-        <p>{showStatus && time > 0 ? time + "秒" : ""}</p>
         <p>
-          {showStatus && time === 0 ? "おめでとう！" : "まだ教えないよ〜ん"}
+          {showStatus ? "見事エンジニア王に輝いたのは？？" : "まだ教えないよ〜ん"}
         </p>
         <div
           className="member-list-wrapper"
-          style={{ display: showStatus && time === 0 ? "block" : "none" }}
         >
           <table className="member-list">
             <tbody>

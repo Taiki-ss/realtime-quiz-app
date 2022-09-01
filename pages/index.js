@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "../styles/Home.module.scss";
-import axios from "axios";
+import { db } from "firebase/firebase_init";
 
 export default function Home() {
   const [username, setUsername] = useState("");
   const [porto, setPorto] = useState("");
   const [role, setRole] = useState("");
   const [userId, setUserId] = useState("");
-  const [userPoint, setUserPoint] = useState(0);
 
   const getUser = () => {
     if (username === "" || porto === "" || role === "") {
@@ -16,50 +15,62 @@ export default function Home() {
       return;
     }
 
-    axios
-      .get("/api/user", {
-        params: {
-          currentName: username,
-		  porto: porto,
-		  role: role
-        },
-      })
+    db.collection("testUsers")
+      .get()
       .then((res) => {
-        console.log("get");
-        console.log(res.data);
-        if (res.data.docId) {
-          setUsername(res.data.userName);
-          setUserId(res.data.docId);
-          setUserPoint(res.data.point);
+        const user = res.docs
+          .map((doc) => {
+            return doc.data().name == username &&
+              doc.data().porto == porto &&
+              doc.data().role === role
+              ? doc
+              : false;
+          })
+          .filter(Boolean);
+
+        if (user.length) {
+          setUserId(user[0].id);
+          setUsername(user[0].data().name);
         } else {
           if (
-            confirm(
+            !confirm(
               `ユーザー未登録です。\nこの名前「${username}」で新規登録しますか？`
             )
-          ) {
-            createNewUser();
-          }
+          )
+            return;
+
+          db.collection("testUsers")
+            .add({
+              name: username,
+              porto: porto,
+              role: role,
+              point: 0,
+              answered: {
+                q1: 'F',
+                q2: 'F',
+                q3: 'F',
+                q4: 'F',
+                q5: 'F',
+                q6: 'F',
+                q7: 'F',
+                q8: 'F',
+                q9: 'F',
+                q10: 'F',
+                q11: 'F',
+                q12: 'F',
+                q13: 'F',
+                q14: 'F',
+                q15: 'F',
+              },
+            })
+            .then((response) => {
+              console.log(response.id);
+              setUserId(response.id);
+            });
         }
       })
       .catch((error) => console.log(error));
-  };
 
-  const createNewUser = () => {
-    axios
-      .post("/api/user", {
-        currentName: username,
-        porto: porto,
-        role: role,
-      })
-      .then((res) => {
-        console.log("post");
-        console.log(res.data);
-        console.log("登録済み");
-        getUser();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   const nameChange = (e) => {
