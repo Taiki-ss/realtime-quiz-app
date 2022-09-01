@@ -3,65 +3,48 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "styles/Home.module.scss";
 import axios from "axios";
+import { db } from "firebase/firebase_init";
 
 export default function Quiz() {
   const router = useRouter();
+  const query = router.query;
   const userId = router.query.userId;
   const [questionNum, setQuestionNum] = useState(1);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-  const [isAnswerd, setIsAnswerd] = useState(false);
+  const [isAnswerd, setIsAnswerd] = useState("F");
   const [userData, setUserData] = useState({});
 
-  useEffect(() => resetQuestion, [questionNum]);
+  useEffect(() => {
+    db.collection("currentQuestion")
+      .doc("currentQuestion")
+      .onSnapshot(async (snapshot) => {
+        setQuestionNum(snapshot.data().currentQuestion);
+        await db
+          .collection("questions")
+          .doc(`question${snapshot.data().currentQuestion}`)
+          .get()
+          .then( (res) => {
+            setQuestion(res.data());
+            setAnswer(res.data().answer);
+          });
+      });
+  }, [userId]);
 
-  const resetQuestion = () => {
-    console.log("実行");
-
-    axios
-      .get("/api/question", { params: { param: "currentNum" } })
+  useEffect(() => {
+    db.collection("testUsers")
+      .doc(userId)
+      .get()
       .then((res) => {
-        if (questionNum != res.data) {
-          setIsAnswerd(false);
-        }
-        setQuestionNum(res.data);
-        getQuestion(res.data);
-      })
-      .catch((error) => console.log(error));
-  };
-  const getQuestion = (num) => {
-    axios
-      .get("/api/question", {
-        params: { param: "getQuestion", qNum: num },
-      })
-      .then((res) => {
-        setQuestion(res.data);
-        setAnswer(res.answer);
-        getUser(num);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const getUser = (num) => {
-    axios
-      .get("/api/user", {
-        params: {
-          userId: userId,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setUserData(res.data);
-        if (
-          res.data.answered[`q${num}`] != undefined &&
-          res.data.answered[`q${num}`] == true
-        ) {
-          setIsAnswerd(true);
+        console.log(res.data());
+        setUserData(res.data());
+        if (res.data()) {
+          setIsAnswerd(res.data().answered[`q` + questionNum]);
         }
       });
-  };
+  }, [questionNum,userId]);
 
-  const toAnswer = (e) => {
+  const toAnswer = async (e) => {
     if (
       confirm(
         `回答は「${e.target.value}」でよろしいですか？\n解答をやり直すことはできません`
@@ -70,29 +53,28 @@ export default function Quiz() {
       setIsAnswerd(true);
 
       const answeredData = userData.answered;
-      answeredData[`q${questionNum}`] = true;
+      answeredData[`q${questionNum}`] = e.target.value;
 
-      axios
-        .post("/api/user", {
-          userId: userId,
-          answered: answeredData,
-          point:
-            question.answer === e.target.value
-              ? userData.point+1
-              : userData.point,
-        })
-        .then((res) => {
-			console.log(res)
-		})
-        .catch((error) => {
-          console.log(error);
-        });
+      setIsAnswerd(e.target.value);
+      await db
+        .collection("testUsers")
+        .doc(userId)
+        .set(
+          {
+            answered: answeredData,
+            point:
+              question.answer === e.target.value
+                ? userData.point + 1
+                : userData.point,
+          },
+          { merge: true }
+        );
     }
   };
 
   return (
     <div className={styles.container}>
-      <p>{userData ? userData.userName : ""}さんが解答中</p>
+      <p>{userData ? userData.name : ""}さんが解答中</p>
       <button
         style={{
           display: userId ? "block" : "none",
@@ -103,41 +85,38 @@ export default function Quiz() {
       </button>
       <main className={styles.main}>
         <h1 className={styles.title}>第{questionNum}問</h1>
-        <h2>{isAnswerd ? "解答済み" : "未解答"}</h2>
+        <h2>{isAnswerd !== "F" ? "あなたの回答：" + isAnswerd : "未解答"}</h2>
         <p>{question.question}</p>
         <div
           style={{
-            display:
-              userData.answered == "" || isAnswerd || !question.question
-                ? "none"
-                : "block",
+            display: isAnswerd !== "F" || !question.question ? "none" : "block",
           }}
         >
           <ul className="answer-list">
             <li>
-              <button value="A" onClick={toAnswer} disabled={isAnswerd}>
+              <button value="A" onClick={toAnswer}>
                 A
               </button>
             </li>
             <li>
-              <button value="B" onClick={toAnswer} disabled={isAnswerd}>
+              <button value="B" onClick={toAnswer}>
                 B
               </button>
             </li>
             <li>
-              <button value="C" onClick={toAnswer} disabled={isAnswerd}>
+              <button value="C" onClick={toAnswer}>
                 C
               </button>
             </li>
             <li>
-              <button value="D" onClick={toAnswer} disabled={isAnswerd}>
+              <button value="D" onClick={toAnswer}>
                 D
               </button>
             </li>
           </ul>
         </div>
 
-        <button
+        {/* <button
           onClick={resetQuestion}
           style={{
             display: userId ? "block" : "none",
@@ -145,7 +124,7 @@ export default function Quiz() {
           }}
         >
           問題を表示
-        </button>
+        </button> */}
         <p>※司会が合図をしてからしか次の問題には進めません</p>
       </main>
     </div>
