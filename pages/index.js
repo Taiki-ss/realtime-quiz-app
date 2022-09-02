@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import styles from "../styles/Home.module.scss";
+import Router from "next/router";
 import { db } from "firebase/firebase_init";
 
 export default function Home() {
@@ -31,6 +31,7 @@ export default function Home() {
         if (user.length) {
           setUserId(user[0].id);
           setUsername(user[0].data().name);
+          decision(user[0].data().name, user[0].id);
         } else {
           if (
             !confirm(
@@ -46,31 +47,31 @@ export default function Home() {
               role: role,
               point: 0,
               answered: {
-                q1: 'F',
-                q2: 'F',
-                q3: 'F',
-                q4: 'F',
-                q5: 'F',
-                q6: 'F',
-                q7: 'F',
-                q8: 'F',
-                q9: 'F',
-                q10: 'F',
-                q11: 'F',
-                q12: 'F',
-                q13: 'F',
-                q14: 'F',
-                q15: 'F',
+                q1: "F",
+                q2: "F",
+                q3: "F",
+                q4: "F",
+                q5: "F",
+                q6: "F",
+                q7: "F",
+                q8: "F",
+                q9: "F",
+                q10: "F",
+                q11: "F",
+                q12: "F",
+                q13: "F",
+                q14: "F",
+                q15: "F",
               },
             })
             .then((response) => {
               console.log(response.id);
               setUserId(response.id);
+              decision(username, response.id);
             });
         }
       })
       .catch((error) => console.log(error));
-
   };
 
   const nameChange = (e) => {
@@ -86,6 +87,14 @@ export default function Home() {
   const roleChange = (e) => {
     setRole(e.target.value);
     setUserId("");
+  };
+
+  // 自動ページ遷移
+  const decision = (username, userId) => {
+    Router.push({
+      pathname: "/quiz",
+      query: { username: username, userId: userId },
+    });
   };
 
   return (
@@ -146,24 +155,6 @@ export default function Home() {
             style={{ margin: "0 auto", width: "100%" }}
           >
             決定
-          </button>
-
-          <button
-            style={{
-              display: userId ? "block" : "none",
-              backgroundColor: "pink",
-              margin: "24px auto",
-              width: "100%",
-            }}
-          >
-            <Link
-              href={{
-                pathname: "/quiz",
-                query: { username: username, userId: userId },
-              }}
-            >
-              クイズへ進む
-            </Link>
           </button>
         </div>
       </main>
