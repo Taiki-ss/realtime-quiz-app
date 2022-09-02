@@ -2,7 +2,7 @@ import { Chart } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
 // レンダリング
-export default function BarGraph(props) {
+export default function BarGraph(props): JSX.Element | null {
   const { A, B, C, D } = props;
 
   const data = {
