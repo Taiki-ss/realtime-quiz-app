@@ -108,13 +108,10 @@ export default function Home() {
 
         <div>
           <h2>
-            登録:{userId ? "登録済み" : "未登録"}
-            <br />
-            {porto ? porto : "無所属"}の{role ? role : ""}
-            <br />「{username ? username : ""}」
+			さあ、エントリーしてくれ！
           </h2>
           <div className="input-container">
-            <p>登録している名前を入力してください</p>
+            <p>わかりやすい名前で入力してください。</p>
             <div className="input-name">
               <input
                 placeholder="空白なしフルネーム"
