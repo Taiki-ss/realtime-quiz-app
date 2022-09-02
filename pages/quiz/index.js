@@ -90,11 +90,6 @@ export default function Quiz() {
   }, [questionNum, userId]);
 
   const toAnswer = async (e) => {
-    if (
-      confirm(
-        `回答は「${e.target.value}」でよろしいですか？\n解答をやり直すことはできません`
-      )
-    ) {
       setIsAnswerd(true);
 
       const answeredData = userData.answered;
@@ -114,7 +109,6 @@ export default function Quiz() {
           },
           { merge: true }
         );
-    }
   };
 
   return (
