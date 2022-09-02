@@ -5,6 +5,7 @@ import { db } from "firebase/firebase_init";
 import BarGraph from "compornent/bar";
 
 export default function Quiz() {
+  const maxTime = 10;
   const router = useRouter();
   const query = router.query;
   const userId = router.query.userId;
@@ -14,7 +15,7 @@ export default function Quiz() {
   const [isAnswerd, setIsAnswerd] = useState("F");
   const [userData, setUserData] = useState({});
   const [answers, setAnswers] = useState({});
-  const [downTime, setDownTime] = useState(10);
+  const [downTime, setDownTime] = useState(maxTime);
 
   useEffect(() => {
     if (downTime === 0 && questionNum !== 0) {
@@ -83,7 +84,7 @@ export default function Quiz() {
         setUserData(res.data());
         if (res.data()) {
           setIsAnswerd(res.data().answered[`q` + questionNum]);
-          setDownTime(10);
+          setDownTime(maxTime);
         }
       });
   }, [questionNum, userId]);
@@ -105,6 +106,7 @@ export default function Quiz() {
             question.answer === e.target.value
               ? userData.point + 1
               : userData.point,
+          time: userData.time + downTime,
         },
         { merge: true }
       );
@@ -138,8 +140,14 @@ export default function Quiz() {
               display: downTime === 0 && answers !== {} ? "block" : "none",
             }}
           >
-            <BarGraph A={answers.A} B={answers.B} C={answers.C} D={answers.D}/>
-            <ul style={{display:"flex",listStyle:"none",justifyContent:"space-around"}}>
+            <BarGraph A={answers.A} B={answers.B} C={answers.C} D={answers.D} />
+            <ul
+              style={{
+                display: "flex",
+                listStyle: "none",
+                justifyContent: "space-around",
+              }}
+            >
               <li>A:{answers.A}人</li>
               <li>B:{answers.B}人</li>
               <li>C:{answers.C}人</li>

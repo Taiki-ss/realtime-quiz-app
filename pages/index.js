@@ -46,6 +46,7 @@ export default function Home() {
               porto: porto,
               role: role,
               point: 0,
+			  time:0,
               answered: {
                 q1: "F",
                 q2: "F",
