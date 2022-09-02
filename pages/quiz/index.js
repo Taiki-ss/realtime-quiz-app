@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "styles/Home.module.scss";
-import axios from "axios";
 import { db } from "firebase/firebase_init";
+import BarGraph from "compornent/bar";
 
 export default function Quiz() {
   const router = useRouter();
@@ -45,9 +44,9 @@ export default function Quiz() {
   }, [downTime]);
 
   useEffect(() => {
-	if(questionNum === 0){
-		return
-	}
+    if (questionNum === 0) {
+      return;
+    }
 
     if (isAnswerd === "F" && downTime === 0) {
       setIsAnswerd("T");
@@ -58,7 +57,7 @@ export default function Quiz() {
     setTimeout(() => {
       setDownTime(downTime - 1);
     }, 1000);
-  }, [downTime,questionNum]);
+  }, [downTime, questionNum]);
 
   useEffect(() => {
     db.collection("currentQuestion")
@@ -90,25 +89,25 @@ export default function Quiz() {
   }, [questionNum, userId]);
 
   const toAnswer = async (e) => {
-      setIsAnswerd(true);
+    setIsAnswerd(true);
 
-      const answeredData = userData.answered;
-      answeredData[`q${questionNum}`] = e.target.value;
+    const answeredData = userData.answered;
+    answeredData[`q${questionNum}`] = e.target.value;
 
-      setIsAnswerd(e.target.value);
-      await db
-        .collection("testUsers")
-        .doc(userId)
-        .set(
-          {
-            answered: answeredData,
-            point:
-              question.answer === e.target.value
-                ? userData.point + 1
-                : userData.point,
-          },
-          { merge: true }
-        );
+    setIsAnswerd(e.target.value);
+    await db
+      .collection("testUsers")
+      .doc(userId)
+      .set(
+        {
+          answered: answeredData,
+          point:
+            question.answer === e.target.value
+              ? userData.point + 1
+              : userData.point,
+        },
+        { merge: true }
+      );
   };
 
   return (
@@ -139,7 +138,8 @@ export default function Quiz() {
               display: downTime === 0 && answers !== {} ? "block" : "none",
             }}
           >
-            <ul>
+            <BarGraph A={answers.A} B={answers.B} C={answers.C} D={answers.D}/>
+            <ul style={{display:"flex",listStyle:"none",justifyContent:"space-around"}}>
               <li>A:{answers.A}人</li>
               <li>B:{answers.B}人</li>
               <li>C:{answers.C}人</li>
