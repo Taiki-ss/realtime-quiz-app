@@ -193,21 +193,18 @@ export default function Result() {
                 <th>得点</th>
               </tr>
               <tr className="late" data-count="1"><td>1位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>25点</td></tr>
-              <tr className="late" data-count="1"><td>1位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>25点</td></tr>
-              <tr className="late" data-count="1"><td>1位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>25点</td></tr>
-              <tr className="late" data-count="1"><td>4位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>23点</td></tr>
-              <tr className="late" data-count="1"><td>5位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>22点</td></tr>
-              <tr className="late" data-count="1"><td>6位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>21点</td></tr>
-              <tr className="late" data-count="1"><td>7位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>20点</td></tr>
-              <tr className="late" data-count="1"><td>8位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>19点</td></tr>
-              <tr className="late" data-count="1"><td>9位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>17点</td></tr>
+              <tr className="late" data-count="1"><td>1位</td><td>○○ ○○さん</td><td>ありぽる</td><td>ディレクター</td><td>25点</td></tr>
+              <tr className="late" data-count="1"><td>1位</td><td>○○ ○○さん</td><td>でじぽる</td><td>エンジニア</td><td>25点</td></tr>
+              <tr className="late" data-count="1"><td>4位</td><td>○○ ○○さん</td><td>おむぽる</td><td>ディレクター</td><td>23点</td></tr>
+              <tr className="late" data-count="1"><td>5位</td><td>○○ ○○さん</td><td>いとぽる</td><td>エンジニア</td><td>22点</td></tr>
+              <tr className="late" data-count="1"><td>6位</td><td>○○ ○○さん</td><td>ときぽる</td><td>キャプテンルーム</td><td>21点</td></tr>
+              <tr className="late" data-count="1"><td>7位</td><td>○○ ○○さん</td><td>はさぽる</td><td>エンジニア</td><td>20点</td></tr>
+              <tr className="late" data-count="1"><td>8位</td><td>○○ ○○さん</td><td>よしぽる</td><td>ディレクター</td><td>19点</td></tr>
+              <tr className="late" data-count="1"><td>9位</td><td>○○ ○○さん</td><td>いとぽる</td><td>エンジニア</td><td>17点</td></tr>
               <tr className="late" data-count="1"><td>9位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>15点</td></tr>
-              <tr className="late" data-count="1"><td>11位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>14点</td></tr>
-              <tr className="late" data-count="1"><td>12位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>13点</td></tr>
-              <tr className="late" data-count="1"><td>13位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>11点</td></tr>
-              <tr className="late" data-count="1"><td>14位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>10点</td></tr>
-              <tr className="late" data-count="1"><td>14位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>10点</td></tr>
-              <tr className="late" data-count="1"><td>14位</td><td>○○ ○○さん</td><td>よしぽる</td><td>エンジニア</td><td>10点</td></tr>
+              <tr className="late" data-count="1"><td>11位</td><td>○○ ○○さん</td><td>よしぽる</td><td>ディレクター</td><td>14点</td></tr>
+              <tr className="late" data-count="1"><td>12位</td><td>○○ ○○さん</td><td>ありぽる</td><td>エンジニア</td><td>13点</td></tr>
+              <tr className="late" data-count="1"><td>13位</td><td>○○ ○○さん</td><td>ありぽる</td><td>ディレクター</td><td>11点</td></tr>
             </tbody>
           </table>
         </div>
