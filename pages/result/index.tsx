@@ -89,7 +89,7 @@ export default function Result() {
   });
 
   const showRanking = () => {
-    const showNum = 20;
+    const showNum = 15;
     document.querySelectorAll(".late").forEach((v) => {
       v.style.display = "none";
     });
@@ -185,14 +185,7 @@ export default function Result() {
         >
           <table className="member-list">
             <tbody>
-              <tr>
-                <th>順位</th>
-                <th>名前</th>
-                <th>所属</th>
-                <th>職種</th>
-                <th>得点</th>
-              </tr>
-              {menberList}
+				{menberList}
             </tbody>
           </table>
         </div>
