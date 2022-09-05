@@ -27,7 +27,7 @@ def create_user(num=1):
 		driver.get("https://ss:ss@dev.gcp.steamship.co.jp/engineer-king/")
 
 
-		name_list = ['中野亮太','山﨑洋義','七種宙時','川谷純輝','前山こういちろう','吉本康二','金子智幸','橋本和可奈','大野洋平','若井光大','石田大揮']
+		name_list = ['中野亮太','山﨑洋義','七種宙時','川谷純輝','前山こういちろう','吉本康二','金子智幸','橋本和可奈','大野洋平','若井光大','石田大揮','アムロ・レイ','シャア・アズナブル','カミーユ・ビダン','ジュドー・アーシタ','バナージ・リンクス','ハサウェイ・ノア','ヒイロ・ユイ','星のカービィ']
 		name_input = driver.find_element(By.XPATH,'//*[@id="__next"]/div/main/div/div/div[1]/input')
 		name_input.send_keys(random.choice(name_list))
 
