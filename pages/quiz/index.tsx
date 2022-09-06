@@ -4,17 +4,52 @@ import styles from "styles/Home.module.scss";
 import { db } from "firebase/firebase_init";
 import BarGraph from "compornent/bar";
 
+type answered = {
+  q1: string;
+  q2: string;
+  q3: string;
+  q4: string;
+  q5: string;
+  q6: string;
+  q7: string;
+  q8: string;
+  q9: string;
+  q10: string;
+  q11: string;
+};
+
+type userData = {
+  name?: string;
+  porto?: string;
+  role?: string;
+  point?: number;
+  time?: number;
+  answered?: answered;
+};
+
+type question = {
+  question?: string;
+  answer?: string;
+};
+
+type answers={
+	A?: number;
+	B?: number;
+	C?: number;
+	D?: number;
+}
+
 export default function Quiz() {
   const maxTime = 10;
   const router = useRouter();
   const query = router.query;
-  const userId = router.query.userId;
+  const userId: any = router.query.userId;
   const [questionNum, setQuestionNum] = useState(0);
-  const [question, setQuestion] = useState("");
+  const [question, setQuestion] = useState<question>({});
   const [answer, setAnswer] = useState("");
   const [isAnswerd, setIsAnswerd] = useState("F");
-  const [userData, setUserData] = useState({});
-  const [answers, setAnswers] = useState({});
+  const [userData, setUserData] = useState<userData>({});
+  const [answers, setAnswers] = useState<answers>({});
   const [downTime, setDownTime] = useState(maxTime);
 
   useEffect(() => {
@@ -63,13 +98,13 @@ export default function Quiz() {
   useEffect(() => {
     db.collection("currentQuestion")
       .doc("currentQuestion")
-      .onSnapshot(async (snapshot) => {
+      .onSnapshot(async (snapshot: any) => {
         setQuestionNum(snapshot.data().currentQuestion);
         await db
           .collection("questions")
           .doc(`question${snapshot.data().currentQuestion}`)
           .get()
-          .then((res) => {
+          .then((res: any) => {
             setQuestion(res.data());
           });
       });
@@ -79,7 +114,7 @@ export default function Quiz() {
     db.collection("testUsers")
       .doc(userId)
       .get()
-      .then((res) => {
+      .then((res: any) => {
         console.log(res.data());
         setUserData(res.data());
         if (res.data()) {
@@ -90,9 +125,13 @@ export default function Quiz() {
   }, [questionNum, userId]);
 
   const toAnswer = async (e) => {
-    setIsAnswerd(true);
-
-    const answeredData = userData.answered;
+    const answeredData: answered | undefined = userData.answered;
+    if (
+      answeredData === undefined ||
+      userData.point === undefined ||
+      userData.time === undefined
+    )
+      return;
     answeredData[`q${questionNum}`] = e.target.value;
 
     setIsAnswerd(e.target.value);
@@ -137,7 +176,7 @@ export default function Quiz() {
           </h2>
           <div
             style={{
-              display: downTime === 0 && answers !== {} ? "block" : "none",
+              display: downTime === 0 && answers.A === undefined ? "block" : "none",
             }}
           >
             <BarGraph A={answers.A} B={answers.B} C={answers.C} D={answers.D} />

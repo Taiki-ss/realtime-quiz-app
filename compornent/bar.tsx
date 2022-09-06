@@ -40,7 +40,7 @@ export default function BarGraph(props): JSX.Element | null {
     ],
   };
 
-  const options = {
+  const options:any = {
     scale: {
       ticks: {
         min: 0,
