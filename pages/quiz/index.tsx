@@ -39,6 +39,8 @@ type answers={
 	D?: number;
 }
 
+const COLLECTION_NAME:string = process.env.NEXT_PUBLIC_COLLECTION_NAME ? process.env.NEXT_PUBLIC_COLLECTION_NAME : "users" ;
+
 export default function Quiz() {
   const maxTime = 10;
   const router = useRouter();
@@ -62,7 +64,7 @@ export default function Quiz() {
           D: 0,
         };
         await db
-          .collection("testUsers")
+          .collection(COLLECTION_NAME)
           .get()
           .then((res) => {
             res.docs.forEach((v, i) => {
@@ -111,7 +113,7 @@ export default function Quiz() {
   }, [userId]);
 
   useEffect(() => {
-    db.collection("testUsers")
+    db.collection(COLLECTION_NAME)
       .doc(userId)
       .get()
       .then((res: any) => {
@@ -136,7 +138,7 @@ export default function Quiz() {
 
     setIsAnswerd(e.target.value);
     await db
-      .collection("testUsers")
+      .collection(COLLECTION_NAME)
       .doc(userId)
       .set(
         {
