@@ -16,7 +16,9 @@ type ranking = {
   member?: member[] | undefined;
 };
 
-const COLLECTION_NAME:string = process.env.NEXT_PUBLIC_COLLECTION_NAME ? process.env.NEXT_PUBLIC_COLLECTION_NAME : "users" ;
+const COLLECTION_NAME: string = process.env.NEXT_PUBLIC_COLLECTION_NAME
+  ? process.env.NEXT_PUBLIC_COLLECTION_NAME
+  : "users";
 
 export default function Result() {
   const [showStatus, setShowStatus] = useState(false);
@@ -25,6 +27,7 @@ export default function Result() {
   const [amariDelete, setAmariDelete] = useState(false);
   const [top5, setTop5] = useState(false);
   const [top5count, setTop5count] = useState(5);
+  const [rankingCount, setRankingCount] = useState<number>(0);
 
   useEffect(() => {
     db.collection("result")
@@ -112,9 +115,8 @@ export default function Result() {
     let kaisuu = Math.floor(length / showNum);
     let amari = length % showNum;
 
-    if (document.querySelectorAll(".rank1").length + 2 > top5count) {
-      setTop5count(document.querySelectorAll(".rank1").length + 2);
-    }
+    // rank1の人数
+    setTop5count(document.querySelectorAll(".rank1").length);
 
     console.log(kaisuu);
     console.log(amari);
@@ -132,7 +134,8 @@ export default function Result() {
       return;
     }
 
-    if (kaisuu - showcount > 1) {
+	  if(kaisuu-showcount>1) {
+		setRankingCount(kaisuu-showcount);
       let time = 0;
       for (
         let i = showNum * (kaisuu - showcount) - 1;
@@ -140,16 +143,18 @@ export default function Result() {
         i--
       ) {
         setTimeout(() => {
-          (document.querySelector(`.late[data-count="${i}"]`) as any).style.display =
-            "table-row";
+          (
+            document.querySelector(`.late[data-count="${i}"]`) as any
+          ).style.display = "table-row";
         }, 100 * time);
         time++;
       }
-      setShowcount(showcount+1);
+      setShowcount(showcount + 1);
       return;
     }
 
-    if (kaisuu - showcount === 1) {
+	  if(kaisuu-showcount===1) {
+		setRankingCount(kaisuu-showcount);
       let time = 0;
       for (
         let i = showNum * (kaisuu - showcount) - 1;
@@ -157,8 +162,9 @@ export default function Result() {
         i--
       ) {
         setTimeout(() => {
-          (document.querySelector(`.late[data-count="${i}"]`) as any).style.display =
-            "table-row";
+          (
+            document.querySelector(`.late[data-count="${i}"]`) as any
+          ).style.display = "table-row";
         }, 100 * time);
         time++;
       }
@@ -167,28 +173,23 @@ export default function Result() {
     }
   };
 
-  const showTop5 = () => {
-    (document.querySelector(
-      `.late[data-count="${top5count - 1}"]`
-    ) as any).style.backgroundColor = "pink";
-    (document.querySelector(
-      `.late[data-count="${top5count - 1}"]`
-    ) as any).style.display = "table-row";
-    if (top5count !== 1) setTop5count(top5count-1);
+	const showTop5=() => {
+		setRankingCount(0);
+    for (let i = top5count; i > 0; i--) {
+      (
+        document.querySelector(`.late[data-count="${i - 1}"]`) as any
+      ).style.backgroundColor = "red";
+      (
+        document.querySelector(`.late[data-count="${i - 1}"]`) as any
+      ).style.display = "table-row";
+    }
   };
 
   console.log(result);
 
   return (
     <div className={styles.container}>
-      <button
-        style={{
-          backgroundColor: "pink",
-        }}
-      >
-        <Link href={"/"}>TOPへ戻る</Link>
-      </button>
-
+      <div>あと{rankingCount}回</div>
       <button
         onClick={showRanking}
         style={{ display: showStatus ? "block" : "none" }}
@@ -197,9 +198,12 @@ export default function Result() {
       </button>
       <button
         onClick={showTop5}
-        style={{ display: showStatus ? "block" : "none" }}
+        style={{
+          display: showStatus && top5 ? "block" : "none",
+          backgroundColor: "pink",
+        }}
       >
-        TOP５くらい表示
+        １位発表
       </button>
       <main className={styles.main}>
         <h1 className={styles.title}>結果発表</h1>
