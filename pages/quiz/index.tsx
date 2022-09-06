@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
+import Router from "next/router";
 import styles from "styles/Home.module.scss";
 import { db } from "firebase/firebase_init";
 import BarGraph from "compornent/bar";
@@ -32,14 +33,16 @@ type question = {
   answer?: string;
 };
 
-type answers={
-	A?: number;
-	B?: number;
-	C?: number;
-	D?: number;
-}
+type answers = {
+  A?: number;
+  B?: number;
+  C?: number;
+  D?: number;
+};
 
-const COLLECTION_NAME:string = process.env.NEXT_PUBLIC_COLLECTION_NAME ? process.env.NEXT_PUBLIC_COLLECTION_NAME : "users" ;
+const COLLECTION_NAME: string = process.env.NEXT_PUBLIC_COLLECTION_NAME
+  ? process.env.NEXT_PUBLIC_COLLECTION_NAME
+  : "users";
 
 export default function Quiz() {
   const maxTime = 10;
@@ -53,6 +56,14 @@ export default function Quiz() {
   const [userData, setUserData] = useState<userData>({});
   const [answers, setAnswers] = useState<answers>({});
   const [downTime, setDownTime] = useState(maxTime);
+
+  useEffect(() => {
+    if (userId === undefined) {
+      Router.push({
+        pathname: "/",
+      });
+    }
+  }, []);
 
   useEffect(() => {
     if (downTime === 0 && questionNum !== 0) {
@@ -159,9 +170,9 @@ export default function Quiz() {
         <div style={{ display: questionNum === 0 ? "block" : "none" }}>
           <h1>準備はいいかな？？</h1>
           <h2 className={styles.title}>エントリー</h2>
-          <p>名前：{userData.name}さん</p>
-          <p>所属：{userData.porto}</p>
-          <p>職種：{userData.role}</p>
+          <p>名前：{userData ? userData.name : ""}</p>
+          <p>所属：{userData ? userData.porto : ""}</p>
+          <p>職種：{userData ? userData.role : ""}</p>
           <br />
           <p>スタートまでこのままお待ちください</p>
         </div>
@@ -178,7 +189,8 @@ export default function Quiz() {
           </h2>
           <div
             style={{
-              display: downTime === 0 && answers.A !== undefined ? "block" : "none",
+              display:
+                downTime === 0 && answers.A !== undefined ? "block" : "none",
             }}
           >
             <BarGraph A={answers.A} B={answers.B} C={answers.C} D={answers.D} />
@@ -198,7 +210,7 @@ export default function Quiz() {
           <div
             style={{
               display:
-                isAnswerd !== "F" || !question.question ? "none" : "block",
+                isAnswerd !== "F" || question === undefined ? "none" : "block",
             }}
           >
             <ul className="answer-list">
