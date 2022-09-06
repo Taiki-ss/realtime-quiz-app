@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "styles/Home.module.scss";
 import { db } from "firebase/firebase_init";
+import Rank1 from "compornent/rank1";
 
 type member = {
   name: string;
   porto: string;
   role: string;
+  time: number;
   count: number;
 };
 
@@ -66,6 +68,7 @@ export default function Result() {
                     name: v.data().name,
                     porto: v.data().porto,
                     role: v.data().role,
+                    time: v.data().time,
                     count: count,
                   },
                 ],
@@ -77,6 +80,7 @@ export default function Result() {
                 name: v.data().name,
                 porto: v.data().porto,
                 role: v.data().role,
+                time: v.data().time,
                 count: count,
               });
               lank++;
@@ -100,7 +104,7 @@ export default function Result() {
           <td>{mem.name}</td>
           <td>{mem.porto}</td>
           <td>{mem.role}</td>
-          <td>{obj.point}点</td>
+			  <td>{obj.point}点 {obj.lank === 1 ? `(${mem.time}秒)` : `` }</td>
         </tr>
       );
     });
@@ -134,8 +138,8 @@ export default function Result() {
       return;
     }
 
-	  if(kaisuu-showcount>1) {
-		setRankingCount(kaisuu-showcount);
+    if (kaisuu - showcount > 1) {
+      setRankingCount(kaisuu - showcount);
       let time = 0;
       for (
         let i = showNum * (kaisuu - showcount) - 1;
@@ -153,8 +157,8 @@ export default function Result() {
       return;
     }
 
-	  if(kaisuu-showcount===1) {
-		setRankingCount(kaisuu-showcount);
+    if (kaisuu - showcount === 1) {
+      setRankingCount(kaisuu - showcount);
       let time = 0;
       for (
         let i = showNum * (kaisuu - showcount) - 1;
@@ -173,8 +177,8 @@ export default function Result() {
     }
   };
 
-	const showTop5=() => {
-		setRankingCount(0);
+  const showTop5 = () => {
+    setRankingCount(0);
     for (let i = top5count; i > 0; i--) {
       (
         document.querySelector(`.late[data-count="${i - 1}"]`) as any
@@ -184,6 +188,10 @@ export default function Result() {
       ).style.display = "table-row";
     }
   };
+	
+	const rank1=() => {
+		
+	}
 
   console.log(result);
 
@@ -205,6 +213,11 @@ export default function Result() {
       >
         １位発表
       </button>
+      <button
+        onClick={rank1}
+      >
+        本当の１位発表
+      </button>
       <main className={styles.main}>
         <h1 className={styles.title}>結果発表</h1>
         <p>
@@ -217,6 +230,7 @@ export default function Result() {
             <tbody>{menberList}</tbody>
           </table>
         </div>
+        
       </main>
     </div>
   );
