@@ -1,5 +1,22 @@
-import { Chart } from "chart.js/auto";
-import { Bar } from "react-chartjs-2";
+import {
+	Chart as ChartJS,
+	CategoryScale,
+	LinearScale,
+	BarElement,
+	Title,
+	Tooltip,
+	Legend,
+  } from 'chart.js';
+  import { Bar } from 'react-chartjs-2';
+
+  ChartJS.register(
+	CategoryScale,
+	LinearScale,
+	BarElement,
+	Title,
+	Tooltip,
+	Legend
+  );
 
 // レンダリング
 export default function BarGraph(props): JSX.Element | null {
@@ -40,7 +57,7 @@ export default function BarGraph(props): JSX.Element | null {
     ],
   };
 
-  const options:any = {
+  const options: any = {
     scale: {
       ticks: {
         min: 0,

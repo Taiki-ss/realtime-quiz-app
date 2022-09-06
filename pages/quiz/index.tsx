@@ -178,7 +178,7 @@ export default function Quiz() {
           </h2>
           <div
             style={{
-              display: downTime === 0 && answers.A === undefined ? "block" : "none",
+              display: downTime === 0 && answers.A !== undefined ? "block" : "none",
             }}
           >
             <BarGraph A={answers.A} B={answers.B} C={answers.C} D={answers.D} />
