@@ -16,6 +16,8 @@ type ranking = {
   member?: member[] | undefined;
 };
 
+const COLLECTION_NAME:string = process.env.NEXT_PUBLIC_COLLECTION_NAME ? process.env.NEXT_PUBLIC_COLLECTION_NAME : "users" ;
+
 export default function Result() {
   const [showStatus, setShowStatus] = useState(false);
   const [result, setResult] = useState<ranking[]>([]);
@@ -36,7 +38,7 @@ export default function Result() {
   useEffect(() => {
     (async () => {
       await db
-        .collection("testUsers")
+        .collection(COLLECTION_NAME)
         .orderBy("point", "desc")
         .get()
         .then((res: any) => {

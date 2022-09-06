@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.scss";
 import Router from "next/router";
-import { db } from "firebase/firebase_init";
+import {db} from "firebase/firebase_init";
+
+const COLLECTION_NAME:string = process.env.NEXT_PUBLIC_COLLECTION_NAME ? process.env.NEXT_PUBLIC_COLLECTION_NAME : "users" ;
 
 export default function Home() {
   const [username, setUsername] = useState("");
@@ -15,7 +17,7 @@ export default function Home() {
       return;
     }
 
-    db.collection("testUsers")
+    db.collection(COLLECTION_NAME)
       .get()
       .then((res) => {
         const user:any = res.docs
@@ -40,7 +42,7 @@ export default function Home() {
           )
             return;
 
-          db.collection("testUsers")
+          db.collection(COLLECTION_NAME)
             .add({
               name: username,
               porto: porto,
