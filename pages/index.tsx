@@ -18,7 +18,7 @@ export default function Home() {
     db.collection("testUsers")
       .get()
       .then((res) => {
-        const user = res.docs
+        const user:any = res.docs
           .map((doc) => {
             return doc.data().name == username &&
               doc.data().porto == porto &&
@@ -59,10 +59,6 @@ export default function Home() {
                 q9: "F",
                 q10: "F",
                 q11: "F",
-                q12: "F",
-                q13: "F",
-                q14: "F",
-                q15: "F",
               },
             })
             .then((response) => {
