@@ -41,6 +41,7 @@ export default function Result() {
   }, []);
 
   useEffect(() => {
+    if (showStatus === false) return;
     (async () => {
       await db
         .collection(COLLECTION_NAME)
@@ -87,10 +88,11 @@ export default function Result() {
               count++;
             }
           });
+          console.log(rankingArr);
           setResult(rankingArr);
         });
     })();
-  }, []);
+  }, [showStatus]);
 
   const menberList = result.map((obj: ranking) => {
     return (obj.member as member[]).map((mem) => {
@@ -104,7 +106,9 @@ export default function Result() {
           <td>{mem.name}</td>
           <td>{mem.porto}</td>
           <td>{mem.role}</td>
-			  <td>{obj.point}点 {obj.lank === 1 ? `(${mem.time}秒)` : `` }</td>
+          <td>
+            {obj.point}点 {obj.lank === 1 ? `(${mem.time}秒)` : ``}
+          </td>
         </tr>
       );
     });
@@ -122,8 +126,6 @@ export default function Result() {
     // rank1の人数
     setTop5count(document.querySelectorAll(".rank1").length);
 
-    console.log(kaisuu);
-    console.log(amari);
     if (!amariDelete && amari !== 0) {
       let time = 0;
       for (let i = showNum * kaisuu + amari - 1; i >= showNum * kaisuu; i--) {
@@ -188,12 +190,8 @@ export default function Result() {
       ).style.display = "table-row";
     }
   };
-	
-	const rank1=() => {
-		
-	}
 
-  console.log(result);
+  const rank1 = () => {};
 
   return (
     <div className={styles.container}>
@@ -213,11 +211,7 @@ export default function Result() {
       >
         １位発表
       </button>
-      <button
-        onClick={rank1}
-      >
-        本当の１位発表
-      </button>
+      <button onClick={rank1}>本当の１位発表</button>
       <main className={styles.main}>
         <h1 className={styles.title}>結果発表</h1>
         <p>
@@ -230,7 +224,6 @@ export default function Result() {
             <tbody>{menberList}</tbody>
           </table>
         </div>
-        
       </main>
     </div>
   );
