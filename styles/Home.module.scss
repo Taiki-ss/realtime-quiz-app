@@ -73,7 +73,11 @@
 .description {
   text-align: center;
 }
-
+.main{
+  h2{
+    text-align: center;
+  }
+}
 .description {
   margin: 4rem 0;
   line-height: 1.5;
@@ -131,14 +135,19 @@
   height: 1em;
   margin-left: 0.5rem;
 }
-.input-container input, .input-container select{
-  border: 1px solid #0070f3;
-  padding: 10px;
-}
 @media (max-width: 600px) {
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+  .title {
+    font-size: 2rem;
+  }
+  .main{
+    h2{
+      font-size: 1.25rem;
+    }
+  
   }
 }
 

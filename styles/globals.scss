@@ -20,7 +20,22 @@ select {
   -moz-appearance: none;
   appearance: none;
 }
-
+/* iOSでのデフォルトスタイルをリセット */
+input[type="submit"],
+input[type="button"] {
+  border-radius: 0;
+  -webkit-box-sizing: content-box;
+  -webkit-appearance: button;
+  appearance: button;
+  border: none;
+  box-sizing: border-box;
+  &::-webkit-search-decoration {
+    display: none;
+  }
+  &::focus {
+    outline-offset: -2px;
+  }
+}
 button {
   padding: 4px 24px;
   background-color: lightgreen;
@@ -50,8 +65,9 @@ h1 {
   margin-bottom: 18px;
   input {
     width: 100%;
-    padding: 4px;
+    padding: 10px;
     font-size: 20px;
+    border: 1px solid #0070f3;
   }
 }
 
@@ -59,8 +75,10 @@ h1 {
   margin-bottom: 18px;
   select {
     width: 100%;
-    padding: 4px;
+    padding: 10px;
     font-size: 20px;
+    border: 1px solid #0070f3;
+    background: none;
   }
   option {
     padding: 4px;
@@ -71,8 +89,10 @@ h1 {
   padding-bottom: 18px;
   select {
     width: 100%;
-    padding: 4px;
+    padding: 10px;
     font-size: 20px;
+    border: 1px solid #0070f3;
+    background: none;
   }
   option {
     padding: 4px;
