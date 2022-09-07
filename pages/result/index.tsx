@@ -107,7 +107,10 @@ export default function Result() {
           <td>{mem.porto}</td>
           <td>{mem.role}</td>
           <td>
-            {obj.point}点 {obj.lank === 1 ? `(${mem.time}秒)` : ``}
+            {obj.point}点{" "}
+            <span style={{ display: "none" }}>
+              {obj.lank === 1 ? `(${110 - mem.time}秒)` : ``}
+            </span>
           </td>
         </tr>
       );
@@ -184,21 +187,46 @@ export default function Result() {
     for (let i = top5count; i > 0; i--) {
       (
         document.querySelector(`.late[data-count="${i - 1}"]`) as any
-      ).style.backgroundColor = "red";
+      ).style.backgroundColor = "skyblue";
       (
         document.querySelector(`.late[data-count="${i - 1}"]`) as any
       ).style.display = "table-row";
     }
   };
 
-  const rank1 = () => {};
+  const rank1 = () => {
+    if (result[0].member === undefined) return;
+
+    let topTime: number = 0;
+
+    for (let i = 0; i < (result[0].member as any).length; i++) {
+      if (topTime < result[0].member[i].time) {
+        topTime = result[0].member[i].time;
+      }
+    }
+
+    console.log(topTime);
+
+    document.querySelectorAll(".rank1>td>span").forEach((v: any) => {
+      if (Number(v.innerText.replace(/[^0-9$]/g, "")) === 110 - topTime) {
+        v.classList.add("No1");
+      }
+      v.style.display = "inline-block";
+    });
+
+    setTimeout(() => {
+      document.querySelectorAll(".No1").forEach((v: any) => {
+        v.parentNode.parentNode.style.backgroundColor = "red";
+      });
+    }, 2000);
+  };
 
   return (
     <div className={styles.container}>
       <div>あと{rankingCount}回</div>
       <button
         onClick={showRanking}
-        style={{ display: showStatus ? "block" : "none" }}
+        style={{ display: showStatus && !top5 ? "block" : "none" }}
       >
         ランキング表示
       </button>
@@ -211,7 +239,15 @@ export default function Result() {
       >
         １位発表
       </button>
-      <button onClick={rank1}>本当の１位発表</button>
+      <button
+        onClick={rank1}
+        style={{
+          display: showStatus && top5 ? "block" : "none",
+          backgroundColor: "red",
+        }}
+      >
+        本当の１位発表
+      </button>
       <main className={styles.main}>
         <h1 className={styles.title}>結果発表</h1>
         <p>
