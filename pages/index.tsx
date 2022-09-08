@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.scss";
 import Router from "next/router";
-import {db} from "firebase/firebase_init";
+import { db } from "firebase/firebase_init";
 
-const COLLECTION_NAME:string = process.env.NEXT_PUBLIC_COLLECTION_NAME ? process.env.NEXT_PUBLIC_COLLECTION_NAME : "users" ;
+const COLLECTION_NAME: string = process.env.NEXT_PUBLIC_COLLECTION_NAME
+  ? process.env.NEXT_PUBLIC_COLLECTION_NAME
+  : "users";
 
 export default function Home() {
   const [username, setUsername] = useState("");
@@ -18,17 +20,14 @@ export default function Home() {
     }
 
     db.collection(COLLECTION_NAME)
+      .where("name", "==", username)
+      .where("porto", "==", porto)
+      .where("role", "==", role)
       .get()
       .then((res) => {
-        const user:any = res.docs
-          .map((doc) => {
-            return doc.data().name == username &&
-              doc.data().porto == porto &&
-              doc.data().role === role
-              ? doc
-              : false;
-          })
-          .filter(Boolean);
+        const user: any = res.docs.map((doc) => {
+          return doc;
+        });
 
         if (user.length) {
           setUserId(user[0].id);
@@ -48,7 +47,7 @@ export default function Home() {
               porto: porto,
               role: role,
               point: 0,
-			  time:0,
+              time: 0,
               answered: {
                 q1: "F",
                 q2: "F",
@@ -100,7 +99,7 @@ export default function Home() {
     <div className={styles.container}>
       <main className={styles.main}>
         <figure className="top-logo">
-        <img src="images/logo.png" alt="" />
+          <img src="images/logo.png" alt="" />
         </figure>
         <h1 className={styles.title}>
           エンジニア王は
@@ -109,9 +108,7 @@ export default function Home() {
         </h1>
 
         <div>
-          <h2>
-			さあ、エントリーしてくれ！
-          </h2>
+          <h2>さあ、エントリーしてくれ！</h2>
           <div className="input-container">
             <div className="input-name">
               <input
