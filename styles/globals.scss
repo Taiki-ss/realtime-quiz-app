@@ -14,7 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
-img{
+img {
   max-width: 100%;
 }
 select {
@@ -62,12 +62,12 @@ h1 {
   // background-color: lightgray;
   // padding: 2rem;
 }
-.top-logo{
+.top-logo {
   width: 50%;
   margin: 0 auto;
 }
 @media (max-width: 600px) {
-  .top-logo{
+  .top-logo {
     width: 90%;
   }
 }
@@ -110,23 +110,8 @@ h1 {
 }
 
 .member-list {
-  position: absolute;
-  // bottom: 10%;
-  bottom:0;
-  left: 50%;
-  transform: translateX(-50%);
   border-collapse: collapse;
-  width: 80%;
-  // height: 40%;
-  overflow: scroll;
-  // background-color: aqua;
-  tbody {
-    height: 100%;
-    overflow: scroll;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: flex-end;
-  }
+  width: 100%;
   tr {
     width: 100%;
     border: solid 1px #3c72ab;
@@ -137,24 +122,25 @@ h1 {
     // justify-content: space-between;
     display: none;
   }
-  th{
-    &:nth-of-type(1){
+  th {
+    &:nth-of-type(1) {
       width: 6%;
     }
-    &:nth-of-type(2){
+    &:nth-of-type(2) {
       width: 25%;
     }
-    &:nth-of-type(3){
+    &:nth-of-type(3) {
       width: 20%;
     }
-    &:nth-of-type(4){
+    &:nth-of-type(4) {
       width: 30%;
     }
-    &:nth-of-type(5){
+    &:nth-of-type(5) {
       width: 15%;
     }
   }
   td {
+    height: 32px !important;
     margin: 2px 0;
     // padding: 4px;
     list-style: none;
@@ -164,26 +150,26 @@ h1 {
     // display: flex;
     // align-items: center;
     // justify-content: center;
-    &:nth-of-type(1){
+    &:nth-of-type(1) {
       width: 8%;
       background: #2157bf;
       border-radius: 8px;
       margin: 2px;
-	  font-size: 1.6em;
+      font-size: 1.6em;
     }
-    &:nth-of-type(2){
+    &:nth-of-type(2) {
       width: 40%;
       font-size: 2em;
       font-weight: bold;
       color: #f4ffa1;
     }
-    &:nth-of-type(3){
+    &:nth-of-type(3) {
       width: 15%;
     }
-    &:nth-of-type(4){
+    &:nth-of-type(4) {
       width: 25%;
     }
-    &:nth-of-type(5){
+    &:nth-of-type(5) {
       width: 15%;
       background: #eded50;
       color: #0d42a1;
@@ -194,8 +180,13 @@ h1 {
   }
 
   &-wrapper {
-    overflow: scroll;
-    width: 90%;
-    max-height: 100%;
+    width: 80%;
+    max-height: 100vh;
+    overflow-y: scroll;
+	position: absolute;
+	// bottom: 10%;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
   }
 }
