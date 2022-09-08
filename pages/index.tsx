@@ -99,7 +99,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <figure class="top-logo">
+        <figure className="top-logo">
         <img src="images/logo.png" alt="" />
         </figure>
         <h1 className={styles.title}>
