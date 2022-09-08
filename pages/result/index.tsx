@@ -143,12 +143,16 @@ export default function Result() {
       return;
     }
 
-    if (kaisuu - showcount > 1) {
+	  if(kaisuu-showcount>1) {
+		const tyouseiNum =
+        (result[0].member as any).length > 15 && kaisuu-showcount === 2
+          ? (result[0].member as any).length - 15
+          : 0;
       setRankingCount(kaisuu - showcount);
       let time = 0;
       for (
         let i = showNum * (kaisuu - showcount) - 1;
-        i >= showNum * (kaisuu - showcount - 1);
+        i >= showNum * (kaisuu - showcount - 1) + tyouseiNum;
         i--
       ) {
         setTimeout(() => {
@@ -163,6 +167,7 @@ export default function Result() {
     }
 
     if (kaisuu - showcount === 1) {
+
       setRankingCount(kaisuu - showcount);
       let time = 0;
       for (
@@ -216,7 +221,8 @@ export default function Result() {
 
     setTimeout(() => {
       document.querySelectorAll(".No1").forEach((v: any) => {
-        v.parentNode.parentNode.style.backgroundColor = "red";
+		  v.parentNode.parentNode.style.backgroundColor="red";
+		  v.scrollIntoView({behavior: 'smooth', block: 'center'});
       });
     }, 2000);
   };
@@ -269,14 +275,21 @@ export default function Result() {
             top: "50%",
             transform: "translate(0,-50%)",
             color: "#dab300",
-			background: "linear-gradient(#05FBFF, #1D62F0 ) fixed",
+            background: "linear-gradient(#05FBFF, #1D62F0 ) fixed",
             height: "100%",
             padding: "0 8px",
           }}
         >
           結果発表
         </h1>
-        <p style={{fontSize:"60px",fontWeight:"bold",color:"white",textAlign:"center"}}>
+        <p
+          style={{
+            fontSize: "60px",
+            fontWeight: "bold",
+            color: "white",
+            textAlign: "center",
+          }}
+        >
           {showStatus
             ? "見事エンジニア王に輝いたのは？？"
             : "まだ教えないよ〜ん"}
