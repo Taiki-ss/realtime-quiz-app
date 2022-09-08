@@ -14,7 +14,9 @@ a {
 * {
   box-sizing: border-box;
 }
-
+img{
+  max-width: 100%;
+}
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -60,7 +62,15 @@ h1 {
   // background-color: lightgray;
   // padding: 2rem;
 }
-
+.top-logo{
+  width: 50%;
+  margin: 0 auto;
+}
+@media (max-width: 600px) {
+  .top-logo{
+    width: 90%;
+  }
+}
 .input-name {
   margin-bottom: 18px;
   input {
