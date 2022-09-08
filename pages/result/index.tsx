@@ -187,7 +187,7 @@ export default function Result() {
     for (let i = top5count; i > 0; i--) {
       (
         document.querySelector(`.late[data-count="${i - 1}"]`) as any
-      ).style.backgroundColor = "skyblue";
+      ).style.backgroundColor = "blue";
       (
         document.querySelector(`.late[data-count="${i - 1}"]`) as any
       ).style.display = "table-row";
@@ -226,31 +226,57 @@ export default function Result() {
       <div>あと{rankingCount}回</div>
       <button
         onClick={showRanking}
-        style={{ display: showStatus && !top5 ? "block" : "none" }}
+        style={{
+          display: showStatus && !top5 ? "inline-block" : "none",
+          padding: "8px",
+          margin: 0,
+        }}
       >
-        ランキング表示
+        <p style={{ writingMode: "vertical-rl", margin: 0 }}>ランキング表示</p>
       </button>
       <button
         onClick={showTop5}
         style={{
           display: showStatus && top5 ? "block" : "none",
-          backgroundColor: "pink",
+          backgroundColor: "blue",
+          color: "white",
+          padding: "8px",
+          margin: 0,
         }}
       >
-        １位発表
+        <p style={{ writingMode: "vertical-rl", margin: 0 }}>１位表示</p>
       </button>
       <button
         onClick={rank1}
         style={{
           display: showStatus && top5 ? "block" : "none",
           backgroundColor: "red",
+          color: "white",
+          padding: "8px",
+          margin: 0,
         }}
       >
-        本当の１位発表
+        <p style={{ writingMode: "vertical-rl", margin: 0 }}>真の１位</p>
       </button>
       <main className={styles.main}>
-        <h1 className={styles.title}>結果発表</h1>
-        <p>
+        <h1
+          className={styles.title}
+          style={{
+            writingMode: "vertical-rl",
+            position: "absolute",
+            right: 0,
+            fontSize: "80px",
+            top: "50%",
+            transform: "translate(0,-50%)",
+            color: "#dab300",
+			background: "linear-gradient(#05FBFF, #1D62F0 ) fixed",
+            height: "100%",
+            padding: "0 8px",
+          }}
+        >
+          結果発表
+        </h1>
+        <p style={{fontSize:"60px",fontWeight:"bold",color:"white"}}>
           {showStatus
             ? "見事エンジニア王に輝いたのは？？"
             : "まだ教えないよ〜ん"}
