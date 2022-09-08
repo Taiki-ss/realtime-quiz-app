@@ -99,6 +99,9 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
+        <figure className="top-logo">
+        <img src="images/logo.png" alt="" />
+        </figure>
         <h1 className={styles.title}>
           エンジニア王は
           <br />
@@ -110,10 +113,9 @@ export default function Home() {
 			さあ、エントリーしてくれ！
           </h2>
           <div className="input-container">
-            <p>わかりやすい名前で入力してください。</p>
             <div className="input-name">
               <input
-                placeholder="空白なしフルネーム"
+                placeholder="名前を入力してください"
                 value={username}
                 onChange={nameChange}
               />

@@ -3,33 +3,36 @@
   height: 100vh;
   background-color: #1a4899;
   background-color: #78a9ff;
-//   background-image: radial-gradient(
-//       290px 300px,
-//       rgba(255, 255, 255, 0.05) 20%,
-//       transparent 20%
-//     ),
-//     radial-gradient(800px 780px, rgba(255, 255, 255, 0.05) 20%, transparent 20%),
-//     radial-gradient(
-//       1000px 990px,
-//       rgba(255, 255, 255, 0.05) 20%,
-//       transparent 20%
-//     ),
-//     radial-gradient(400px 380px, rgba(255, 255, 255, 0.05) 20%, transparent 20%),
-//     radial-gradient(750px 750px, rgba(255, 255, 255, 0.05) 20%, transparent 20%),
-//     radial-gradient(100px 100px, rgba(255, 255, 255, 0.05) 20%, transparent 20%);
-//   background-size: 1230px 1280px, 810px 910px, 1470px 990px, 1200px 1700px,
-//     1520px 1200px, 1100px 1300px;
-//   background-position: -300px -550px, -200px 100px, 50px 510px, -200px -550px,
-//     -180px -250px, 130px -150px;
+  background-repeat: no-repeat;
+  background-image:
+  radial-gradient(closest-side at 200px 200px , rgba(255,255,255, 0.05) 100%, transparent 100%),
+  radial-gradient(closest-side at 100px 100px , rgba(255,255,255, 0.05) 100%, transparent 100%),
+  radial-gradient(closest-side at 280px 280px , rgba(255,255,255, 0.05) 100%, transparent 100%),
+  radial-gradient(closest-side at 360px 360px , rgba(255,255,255, 0.05) 100%, transparent 100%),
+  radial-gradient(closest-side at 300px 300px , rgba(255,255,255, 0.05) 100%, transparent 100%),
+  radial-gradient(closest-side at 250px 250px , rgba(255,255,255, 0.05) 100%, transparent 100%),
+  radial-gradient(closest-side at 20px 20px , rgba(255,255,255, 0.05) 100%, transparent 100%);
+  background-position: 
+  70vw 20vh,
+  40vw 30vh,
+  60vw -40vh,
+  15vw 30vh,
+  80vw 40vh,
+  -10vw -20vh,
+  60vw 60vh;
 }
 
 .main {
-  padding: 2rem 0;
+  padding: 3rem 2rem;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10px;
 }
 
 .footer {
@@ -70,7 +73,11 @@
 .description {
   text-align: center;
 }
-
+.main{
+  h2{
+    text-align: center;
+  }
+}
 .description {
   margin: 4rem 0;
   line-height: 1.5;
@@ -128,11 +135,19 @@
   height: 1em;
   margin-left: 0.5rem;
 }
-
 @media (max-width: 600px) {
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+  .title {
+    font-size: 2rem;
+  }
+  .main{
+    h2{
+      font-size: 1.25rem;
+    }
+  
   }
 }
 
