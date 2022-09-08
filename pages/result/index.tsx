@@ -258,7 +258,7 @@ export default function Result() {
       >
         <p style={{ writingMode: "vertical-rl", margin: 0 }}>真の１位</p>
       </button>
-      <main className={styles.main}>
+      <main>
         <h1
           className={styles.title}
           style={{
@@ -276,7 +276,7 @@ export default function Result() {
         >
           結果発表
         </h1>
-        <p style={{fontSize:"60px",fontWeight:"bold",color:"white"}}>
+        <p style={{fontSize:"60px",fontWeight:"bold",color:"white",textAlign:"center"}}>
           {showStatus
             ? "見事エンジニア王に輝いたのは？？"
             : "まだ教えないよ〜ん"}
