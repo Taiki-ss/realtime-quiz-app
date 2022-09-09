@@ -109,7 +109,7 @@ export default function Result() {
           <td>
             {obj.point}点{" "}
             <span style={{ display: "none" }}>
-              {obj.lank === 1 ? `(${110 - mem.time}秒)` : ``}
+              {obj.lank === 1 ? `(${165 - mem.time}秒)` : ``}
             </span>
           </td>
         </tr>
@@ -213,7 +213,7 @@ export default function Result() {
     console.log(topTime);
 
     document.querySelectorAll(".rank1>td>span").forEach((v: any) => {
-      if (Number(v.innerText.replace(/[^0-9$]/g, "")) === 110 - topTime) {
+      if (Number(v.innerText.replace(/[^0-9$]/g, "")) === 165 - topTime) {
         v.classList.add("No1");
       }
       v.style.display = "inline-block";
