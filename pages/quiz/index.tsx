@@ -45,7 +45,7 @@ const COLLECTION_NAME: string = process.env.NEXT_PUBLIC_COLLECTION_NAME
   : "users";
 
 export default function Quiz() {
-  const maxTime = 10;
+  const maxTime = 15;
   const router = useRouter();
   const query = router.query;
   const userId: any = router.query.userId;
