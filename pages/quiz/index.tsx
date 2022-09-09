@@ -57,13 +57,13 @@ export default function Quiz() {
   const [answers, setAnswers] = useState<answers>({});
   const [downTime, setDownTime] = useState(maxTime);
 
-  useEffect(() => {
-    if (userId === undefined) {
-      Router.push({
-        pathname: "/",
-      });
-    }
-  }, []);
+//   useEffect(() => {
+//     if (userId === undefined) {
+//       Router.push({
+//         pathname: "/",
+//       });
+//     }
+//   }, []);
 
   useEffect(() => {
     if (downTime === 0 && questionNum !== 0) {
