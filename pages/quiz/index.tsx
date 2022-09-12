@@ -185,8 +185,8 @@ export default function Quiz() {
         </div>
         <div style={{ display: questionNum > 0 ? "block" : "none" }}>
           <p>{userData ? userData.name : ""}さんが解答中</p>
-          <p className={styles.title} style={{ color: "red" }}>
-            あと{downTime}秒
+          <p className={styles.countdown} style={{ color: "red" }}>
+            あと<span className={styles.countdownno}>{downTime}</span>秒
           </p>
           <h1 className={styles.title}>第{questionNum}問</h1>
           <h2>
@@ -201,11 +201,12 @@ export default function Quiz() {
             }}
           >
             <BarGraph A={answers.A} B={answers.B} C={answers.C} D={answers.D} />
-            <ul
+            <ul  
               style={{
                 display: "flex",
                 listStyle: "none",
                 justifyContent: "space-around",
+                padding: 0,
               }}
             >
               <li>【1】{answers.A}人</li>
