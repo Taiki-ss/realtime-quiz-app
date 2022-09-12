@@ -126,8 +126,7 @@ export default function Home() {
                 <option value="でじぽる">でじぽる</option>
                 <option value="いとぽる">いとぽる</option>
                 <option value="ときぽる">ときぽる</option>
-                <option value="いえぽる">いえぽる</option>
-                <option value="どこぽる？">どこぽる？</option>
+                <option value="その他">その他</option>
               </select>
             </div>
             <div className="input-role">
@@ -141,6 +140,8 @@ export default function Home() {
                 </option>
                 <option value="カスタマーサポート">カスタマーサポート</option>
                 <option value="デザイナー">デザイナー</option>
+                <option value="商品登録">商品登録</option>
+                <option value="その他">その他</option>
               </select>
             </div>
           </div>
