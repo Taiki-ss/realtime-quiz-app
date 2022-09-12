@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import Router from "next/router";
 import styles from "styles/Home.module.scss";
 import { db } from "firebase/firebase_init";
@@ -44,6 +44,13 @@ const COLLECTION_NAME: string = process.env.NEXT_PUBLIC_COLLECTION_NAME
   ? process.env.NEXT_PUBLIC_COLLECTION_NAME
   : "users";
 
+const answerCombin = {
+  A: 1,
+  B: 2,
+  C: 3,
+  D: 4,
+};
+
 export default function Quiz() {
   const maxTime = 10;
   const router = useRouter();
@@ -57,13 +64,13 @@ export default function Quiz() {
   const [answers, setAnswers] = useState<answers>({});
   const [downTime, setDownTime] = useState(maxTime);
 
-//   useEffect(() => {
-//     if (userId === undefined) {
-//       Router.push({
-//         pathname: "/",
-//       });
-//     }
-//   }, []);
+  //   useEffect(() => {
+  //     if (userId === undefined) {
+  //       Router.push({
+  //         pathname: "/",
+  //       });
+  //     }
+  //   }, []);
 
   useEffect(() => {
     if (downTime === 0 && questionNum !== 0) {
@@ -184,7 +191,7 @@ export default function Quiz() {
           <h1 className={styles.title}>第{questionNum}問</h1>
           <h2>
             {isAnswerd !== "F" && isAnswerd !== "T"
-              ? "あなたが選んだ回答：" + isAnswerd
+              ? "あなたが選んだ回答：" + answerCombin[isAnswerd]
               : "あなたは未解答"}
           </h2>
           <div
@@ -201,10 +208,10 @@ export default function Quiz() {
                 justifyContent: "space-around",
               }}
             >
-              <li>A:{answers.A}人</li>
-              <li>B:{answers.B}人</li>
-              <li>C:{answers.C}人</li>
-              <li>D:{answers.D}人</li>
+              <li>【1】{answers.A}人</li>
+              <li>【2】{answers.B}人</li>
+              <li>【3】{answers.C}人</li>
+              <li>【4】{answers.D}人</li>
             </ul>
           </div>
           <div
@@ -216,22 +223,22 @@ export default function Quiz() {
             <ul className="answer-list">
               <li>
                 <button value="A" onClick={toAnswer}>
-                  A
+                  1
                 </button>
               </li>
               <li>
                 <button value="B" onClick={toAnswer}>
-                  B
+                  2
                 </button>
               </li>
               <li>
                 <button value="C" onClick={toAnswer}>
-                  C
+                  3
                 </button>
               </li>
               <li>
                 <button value="D" onClick={toAnswer}>
-                  D
+                  4
                 </button>
               </li>
             </ul>
