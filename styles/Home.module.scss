@@ -1,25 +1,6 @@
 .container {
   padding: 2rem 1rem;
   height: 100vh;
-  background-color: #1a4899;
-  background-color: #78a9ff;
-  background-repeat: no-repeat;
-  background-image:
-  radial-gradient(closest-side at 200px 200px , rgba(255,255,255, 0.05) 100%, transparent 100%),
-  radial-gradient(closest-side at 100px 100px , rgba(255,255,255, 0.05) 100%, transparent 100%),
-  radial-gradient(closest-side at 280px 280px , rgba(255,255,255, 0.05) 100%, transparent 100%),
-  radial-gradient(closest-side at 360px 360px , rgba(255,255,255, 0.05) 100%, transparent 100%),
-  radial-gradient(closest-side at 300px 300px , rgba(255,255,255, 0.05) 100%, transparent 100%),
-  radial-gradient(closest-side at 250px 250px , rgba(255,255,255, 0.05) 100%, transparent 100%),
-  radial-gradient(closest-side at 20px 20px , rgba(255,255,255, 0.05) 100%, transparent 100%);
-  background-position: 
-  70vw 20vh,
-  40vw 30vh,
-  60vw -40vh,
-  15vw 30vh,
-  80vw 40vh,
-  -10vw -20vh,
-  60vw 60vh;
 }
 
 .main {
