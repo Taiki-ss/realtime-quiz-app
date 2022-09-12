@@ -282,6 +282,9 @@ export default function Result() {
         >
           結果発表
         </h1>
+        <figure style={{position:"absolute",top:"0",right:"0",width:"200px"}}>
+          <img src="/engineer-king/images/logo.png" alt="" />
+        </figure>
         <p
           style={{
             fontSize: "60px",

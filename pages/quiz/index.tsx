@@ -173,6 +173,9 @@ export default function Quiz() {
 
   return (
     <div className={styles.container}>
+          <figure style={{position:"fixed",right:"0",top:"0", width:"100px"}}>
+            <img src="/engineer-king/images/logo.png" alt="" />
+          </figure>
       <main className={styles.main}>
         <div style={{ display: questionNum === 0 ? "block" : "none" }}>
           <h1>準備はいいかな？？</h1>
@@ -209,10 +212,10 @@ export default function Quiz() {
                 padding: 0,
               }}
             >
-              <li>【1】{answers.A}人</li>
-              <li>【2】{answers.B}人</li>
-              <li>【3】{answers.C}人</li>
-              <li>【4】{answers.D}人</li>
+              <li>【1】{answers.A}</li>
+              <li>【2】{answers.B}</li>
+              <li>【3】{answers.C}</li>
+              <li>【4】{answers.D}</li>
             </ul>
           </div>
           <div
