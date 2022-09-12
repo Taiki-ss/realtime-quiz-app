@@ -27,28 +27,28 @@ export default function BarGraph(props): JSX.Element | null {
     labels: ["みんなの回答"],
     datasets: [
       {
-        label: "A",
+        label: "【1】",
         // データの値
         data: [A],
         // グラフの背景色
         backgroundColor: "pink",
       },
       {
-        label: "B",
+        label: "【2】",
         // データの値
         data: [B],
         // グラフの背景色
         backgroundColor: "lightgreen",
       },
       {
-        label: "C",
+        label: "【3】",
         // データの値
         data: [C],
         // グラフの背景色
         backgroundColor: "yellow",
       },
       {
-        label: "D",
+        label: "【4】",
         // データの値
         data: [D],
         // グラフの背景色
