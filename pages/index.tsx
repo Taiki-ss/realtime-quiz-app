@@ -13,61 +13,44 @@ export default function Home() {
   const [role, setRole] = useState("");
   const [userId, setUserId] = useState("");
 
-  const getUser = () => {
+  const entryUser = () => {
     if (username === "" || porto === "" || role === "") {
       alert("名前、ポルト、職種を選択してから再度決定を押してください。");
       return;
     }
 
+    if (
+      !confirm(
+        `この名前「${username}」でエントリーしますか？`
+      )
+    )
+      return;
+
     db.collection(COLLECTION_NAME)
-      .where("name", "==", username)
-      .where("porto", "==", porto)
-      .where("role", "==", role)
-      .get()
-      .then((res) => {
-        const user: any = res.docs.map((doc) => {
-          return doc;
-        });
-
-        if (user.length) {
-          setUserId(user[0].id);
-          setUsername(user[0].data().name);
-          decision(user[0].data().name, user[0].id);
-        } else {
-          if (
-            !confirm(
-              `ユーザー未登録です。\nこの名前「${username}」で新規登録しますか？`
-            )
-          )
-            return;
-
-          db.collection(COLLECTION_NAME)
-            .add({
-              name: username,
-              porto: porto,
-              role: role,
-              point: 0,
-              time: 0,
-              answered: {
-                q1: "F",
-                q2: "F",
-                q3: "F",
-                q4: "F",
-                q5: "F",
-                q6: "F",
-                q7: "F",
-                q8: "F",
-                q9: "F",
-                q10: "F",
-                q11: "F",
-              },
-            })
-            .then((response) => {
-              console.log(response.id);
-              setUserId(response.id);
-              decision(username, response.id);
-            });
-        }
+      .add({
+        name: username,
+        porto: porto,
+        role: role,
+        point: 0,
+        time: 0,
+        answered: {
+          q1: "F",
+          q2: "F",
+          q3: "F",
+          q4: "F",
+          q5: "F",
+          q6: "F",
+          q7: "F",
+          q8: "F",
+          q9: "F",
+          q10: "F",
+          q11: "F",
+        },
+      })
+      .then((response) => {
+        console.log(response.id);
+        setUserId(response.id);
+        decision(username, response.id);
       })
       .catch((error) => console.log(error));
   };
@@ -147,7 +130,7 @@ export default function Home() {
           </div>
 
           <button
-            onClick={() => getUser()}
+            onClick={() => entryUser()}
             style={{ margin: "0 auto", width: "100%" }}
           >
             決定
