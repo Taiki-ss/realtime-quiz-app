@@ -221,10 +221,11 @@ export default function Result() {
 
     setTimeout(() => {
       document.querySelectorAll(".No1").forEach((v: any) => {
-		  v.parentNode.parentNode.style.backgroundColor="red";
+		  // v.parentNode.parentNode.style.backgroundColor="red";
+      v.parentNode.parentNode.classList.add("flashing")
 		  v.scrollIntoView({behavior: 'smooth', block: 'center'});
       });
-    }, 2000);
+    }, 1000);
   };
 
   return (
