@@ -132,10 +132,15 @@ export default function Result() {
     if (!amariDelete && amari !== 0) {
       let time = 0;
       for (let i = showNum * kaisuu + amari - 1; i >= showNum * kaisuu; i--) {
+        (
+          document.querySelector(`.late[data-count="${i}"]`) as any
+        ).style.display = "table-row";
         setTimeout(() => {
+        
           (
             document.querySelector(`.late[data-count="${i}"]`) as any
-          ).style.display = "table-row";
+          ).style.transform = "rotateX(0)"
+
         }, 100 * time);
         time++;
       }
@@ -155,10 +160,15 @@ export default function Result() {
         i >= showNum * (kaisuu - showcount - 1) + tyouseiNum;
         i--
       ) {
+        (
+          document.querySelector(`.late[data-count="${i}"]`) as any
+        ).style.display = "table-row";
         setTimeout(() => {
+        
           (
             document.querySelector(`.late[data-count="${i}"]`) as any
-          ).style.display = "table-row";
+          ).style.transform = "rotateX(0)"
+
         }, 100 * time);
         time++;
       }
@@ -175,10 +185,15 @@ export default function Result() {
         i >= showNum * (kaisuu - showcount - 1) + top5count;
         i--
       ) {
+        (
+          document.querySelector(`.late[data-count="${i}"]`) as any
+        ).style.display = "table-row";
         setTimeout(() => {
+        
           (
             document.querySelector(`.late[data-count="${i}"]`) as any
-          ).style.display = "table-row";
+          ).style.transform = "rotateX(0)"
+
         }, 100 * time);
         time++;
       }
@@ -196,6 +211,9 @@ export default function Result() {
       (
         document.querySelector(`.late[data-count="${i - 1}"]`) as any
       ).style.display = "table-row";
+      (
+        document.querySelector(`.late[data-count="${i - 1}"]`) as any
+      ).style.transform = "rotateX(0)"
     }
   };
 

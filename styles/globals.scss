@@ -116,13 +116,18 @@ h1 {
   width: 100%;
   tr {
     width: 100%;
-    border: solid 1px #3c72ab;
-    background-color: #1a4899;
+    // border: solid 1px #3c72ab;
+    // background-color: #1a4899;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1a4899), to(rgb(33, 122, 248)));
+
     color: #fff;
     border-radius: 8px;
     // display: flex;
     // justify-content: space-between;
     display: none;
+    transition: 1s;
+    transition-delay: .2s;
+    transform:rotateX(90deg)
   }
   th {
     &:nth-of-type(1) {
@@ -154,7 +159,8 @@ h1 {
     // justify-content: center;
     &:nth-of-type(1) {
       width: 8%;
-      background: #2157bf;
+      // background: #2157bf;
+      // background: linear-gradient(#2147bf #fff);
       border-radius: 8px;
       margin: 2px;
       font-size: 1.6em;
@@ -165,12 +171,15 @@ h1 {
       font-size: 2em;
       font-weight: bold;
       color: #f4ffa1;
+      // background-image: -webkit-gradient(linear, left top, left bottom, from(#1a4899), to(rgb(33, 122, 248)));
     }
     &:nth-of-type(3) {
       width: 15%;
+      // background-image: -webkit-gradient(linear, left top, left bottom, from(#1a4899), to(rgb(33, 122, 248)));
     }
     &:nth-of-type(4) {
       width: 25%;
+      // background-image: -webkit-gradient(linear, left top, left bottom, from(#1a4899), to(rgb(33, 122, 248)));
     }
     &:nth-of-type(5) {
       width: 15%;
@@ -204,18 +213,19 @@ h1 {
 @keyframes flashing {
   0% {
     background-color: red;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(red), to(rgb(245, 92, 92)));
   }
 
   30% {
-    background-color: blue;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1a4899), to(rgb(33, 122, 248)));
   }
   60% {
-    background-color: red;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(red), to(rgb(245, 92, 92)));
   }
   80% {
-    background-color: blue;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1a4899), to(rgb(33, 122, 248)));
   }
   100% {
-    background-color: red;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(red), to(rgb(245, 92, 92)));
   }
 }
