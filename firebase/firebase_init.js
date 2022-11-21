@@ -1,12 +1,12 @@
 import firebase from "firebase";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBC-StbzkUqLBGu0V4J3vjUuDbLbdL4yp4",
-  authDomain: "steamship-gcp.firebaseapp.com",
-  projectId: "steamship-gcp",
-  storageBucket: "steamship-gcp.appspot.com",
-  messagingSenderId: "129710370400",
-  appId: "1:129710370400:web:e53f7415f3bbe73095dd05",
+  apiKey: "AIzaSyC4nvz5sUJ58Tz1BbuNQQy085sVbIERIg0",
+  authDomain: "realtime-quiz-app-72792.firebaseapp.com",
+  projectId: "realtime-quiz-app-72792",
+  storageBucket: "realtime-quiz-app-72792.appspot.com",
+  messagingSenderId: "557627477279",
+  appId: "1:557627477279:web:20909f70ff25edfd67f42a"
 };
 
 try {
