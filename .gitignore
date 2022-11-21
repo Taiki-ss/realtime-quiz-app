@@ -10,11 +10,10 @@
 
 # next.js
 /.next/
-# /out/
 
 # production
 /build
-# /out
+/out
 
 # misc
 .DS_Store
@@ -40,5 +39,3 @@ next-env.d.ts
 /FirebaseAdminSDK
 /Firebase
 /firebase
-
-/out
