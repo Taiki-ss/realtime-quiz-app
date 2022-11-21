@@ -39,3 +39,6 @@ next-env.d.ts
 #Firebase
 /FirebaseAdminSDK
 /Firebase
+/firebase
+
+/out
