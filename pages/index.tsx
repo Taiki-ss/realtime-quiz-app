@@ -9,13 +9,12 @@ const COLLECTION_NAME: string = process.env.NEXT_PUBLIC_COLLECTION_NAME
 
 export default function Home() {
   const [username, setUsername] = useState("");
-  const [porto, setPorto] = useState("");
   const [role, setRole] = useState("");
   const [userId, setUserId] = useState("");
 
   const entryUser = () => {
-    if (username === "" || porto === "" || role === "") {
-      alert("名前、ポルト、職種を選択してから再度決定を押してください。");
+    if (username === "" || role === "") {
+      alert("名前、職種を選択してから再度決定を押してください。");
       return;
     }
 
@@ -29,7 +28,6 @@ export default function Home() {
     db.collection(COLLECTION_NAME)
       .add({
         name: username,
-        porto: porto,
         role: role,
         point: 0,
         time: 0,
@@ -60,11 +58,6 @@ export default function Home() {
     setUserId("");
   };
 
-  const portoChange = (e) => {
-    setPorto(e.target.value);
-    setUserId("");
-  };
-
   const roleChange = (e) => {
     setRole(e.target.value);
     setUserId("");
@@ -85,9 +78,7 @@ export default function Home() {
           <img src="images/logo.png" alt="" />
         </figure>
         <h1 className={styles.title}>
-          エンジニア王は
-          <br />
-          きみだ！
+          さあクイズの時間だ。
         </h1>
 
         <div>
@@ -100,31 +91,15 @@ export default function Home() {
                 onChange={nameChange}
               />
             </div>
-            <div className="input-porto">
-              <select onChange={portoChange}>
-                <option value="">所属ポルト</option>
-                <option value="はさぽる">はさぽる</option>
-                <option value="ありぽる">ありぽる</option>
-                <option value="よしぽる">よしぽる</option>
-                <option value="でじぽる">でじぽる</option>
-                <option value="いとぽる">いとぽる</option>
-                <option value="ときぽる">ときぽる</option>
-                <option value="その他">その他</option>
-              </select>
-            </div>
             <div className="input-role">
               <select onChange={roleChange}>
                 <option value="">職種</option>
-                <option value="キャプテン">キャプテン</option>
-                <option value="キャプテンルーム">キャプテンルーム</option>
-                <option value="ディレクター">ディレクター</option>
-                <option value="ディレクターサポート">
-                  ディレクターサポート
-                </option>
-                <option value="カスタマーサポート">カスタマーサポート</option>
+                <option value="エンジニア">エンジニア</option>
                 <option value="デザイナー">デザイナー</option>
-                <option value="商品登録">商品登録</option>
-                <option value="その他">その他</option>
+                <option value="カスタマーサポート">カスタマーサポート</option>
+                <option value="営業">営業</option>
+                <option value="経理">経理</option>
+                
               </select>
             </div>
           </div>

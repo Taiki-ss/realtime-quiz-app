@@ -15,13 +15,10 @@ type answered = {
   q7: string;
   q8: string;
   q9: string;
-  q10: string;
-  q11: string;
 };
 
 type userData = {
   name?: string;
-  porto?: string;
   role?: string;
   point?: number;
   time?: number;
@@ -29,7 +26,6 @@ type userData = {
 };
 
 type question = {
-  question?: string;
   answer?: string;
 };
 
@@ -44,13 +40,6 @@ const COLLECTION_NAME: string = process.env.NEXT_PUBLIC_COLLECTION_NAME
   ? process.env.NEXT_PUBLIC_COLLECTION_NAME
   : "users";
 
-const answerCombin = {
-  A: 1,
-  B: 2,
-  C: 3,
-  D: 4,
-};
-
 export default function Quiz() {
   const maxTime = 10;
   const router = useRouter();
@@ -63,14 +52,6 @@ export default function Quiz() {
   const [userData, setUserData] = useState<userData>({});
   const [answers, setAnswers] = useState<answers>({});
   const [downTime, setDownTime] = useState(maxTime);
-
-  //   useEffect(() => {
-  //     if (userId === undefined) {
-  //       Router.push({
-  //         pathname: "/",
-  //       });
-  //     }
-  //   }, []);
 
   useEffect(() => {
     if (downTime === 0 && questionNum !== 0) {
@@ -174,14 +155,13 @@ export default function Quiz() {
   return (
     <div className={styles.container}>
           <figure style={{position:"fixed",right:"0",top:"0", width:"100px"}}>
-            <img src="/engineer-king/images/logo.png" alt="" />
+            <img src="/realtime-quiz-app/images/logo.png" alt="" />
           </figure>
       <main className={styles.main}>
         <div style={{ display: questionNum === 0 ? "block" : "none" }}>
           <h1>準備はいいかな？？</h1>
           <h2 className={styles.title}>エントリー</h2>
           <p>名前：{userData ? userData.name : ""}</p>
-          <p>所属：{userData ? userData.porto : ""}</p>
           <p>職種：{userData ? userData.role : ""}</p>
           <br />
           <p>スタートまでこのままお待ちください</p>
@@ -194,7 +174,7 @@ export default function Quiz() {
           <h1 className={styles.title}>第{questionNum}問</h1>
           <h2>
             {isAnswerd !== "F" && isAnswerd !== "T"
-              ? "あなたが選んだ回答：" + answerCombin[isAnswerd]
+              ? "あなたが選んだ回答：" + isAnswerd
               : "あなたは未解答"}
           </h2>
           <div
@@ -212,10 +192,10 @@ export default function Quiz() {
                 padding: 0,
               }}
             >
-              <li>【1】{answers.A}</li>
-              <li>【2】{answers.B}</li>
-              <li>【3】{answers.C}</li>
-              <li>【4】{answers.D}</li>
+              <li>【A】{answers.A}</li>
+              <li>【B】{answers.B}</li>
+              <li>【C】{answers.C}</li>
+              <li>【D】{answers.D}</li>
             </ul>
           </div>
           <div
@@ -227,22 +207,22 @@ export default function Quiz() {
             <ul className="answer-list">
               <li>
                 <button value="A" onClick={toAnswer}>
-                  1
+                  A
                 </button>
               </li>
               <li>
                 <button value="B" onClick={toAnswer}>
-                  2
+                  B
                 </button>
               </li>
               <li>
                 <button value="C" onClick={toAnswer}>
-                  3
+                  C
                 </button>
               </li>
               <li>
                 <button value="D" onClick={toAnswer}>
-                  4
+                  D
                 </button>
               </li>
             </ul>

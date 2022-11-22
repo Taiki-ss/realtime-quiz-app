@@ -2,18 +2,18 @@
 const path = require("path");
 
 module.exports = {
-  basePath: "/engineer-king",
+  basePath: "/realtime-quiz-app",
   pageExtensions: ["mdx", "md", "jsx", "js", "tsx", "ts"],
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
   trailingSlash: true,
-  assetPrefix: "/engineer-king/",
+  assetPrefix: "/realtime-quiz-app/",
   async rewrites() {
     return [
       {
-        source: "/engineer-king/out/:path*",
-        destination: "/engineer-king/:path*",
+        source: "/realtime-quiz-app/out/:path*",
+        destination: "/realtime-quiz-app/:path*",
       },
     ];
   },

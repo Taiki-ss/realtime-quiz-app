@@ -6,7 +6,6 @@ import Rank1 from "compornent/rank1";
 
 type member = {
   name: string;
-  porto: string;
   role: string;
   time: number;
   count: number;
@@ -67,7 +66,6 @@ export default function Result() {
                 member: [
                   {
                     name: v.data().name,
-                    porto: v.data().porto,
                     role: v.data().role,
                     time: v.data().time,
                     count: count,
@@ -79,7 +77,6 @@ export default function Result() {
             } else {
               (rankingArr[num].member as member[]).push({
                 name: v.data().name,
-                porto: v.data().porto,
                 role: v.data().role,
                 time: v.data().time,
                 count: count,
@@ -104,7 +101,6 @@ export default function Result() {
         >
           <td>{obj.lank}位</td>
           <td>{mem.name}</td>
-          <td>{mem.porto}</td>
           <td>{mem.role}</td>
           <td>
             {obj.point}点{" "}
@@ -302,7 +298,7 @@ export default function Result() {
           結果発表
         </h1>
         <figure style={{position:"absolute",top:"0",right:"0",width:"200px"}}>
-          <img src="/engineer-king/images/logo.png" alt="" />
+          <img src="/realtime-quiz-app/images/logo.png" alt="" />
         </figure>
         <p
           style={{
@@ -313,7 +309,7 @@ export default function Result() {
           }}
         >
           {showStatus
-            ? "見事エンジニア王に輝いたのは？？"
+            ? "見事クイズ王に輝いたのは？？"
             : "まだ教えないよ〜ん"}
         </p>
         <div className="member-list-wrapper">
