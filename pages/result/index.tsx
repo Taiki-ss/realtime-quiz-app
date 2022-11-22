@@ -309,7 +309,7 @@ export default function Result() {
           }}
         >
           {showStatus
-            ? "見事エンジニア王に輝いたのは？？"
+            ? "見事クイズ王に輝いたのは？？"
             : "まだ教えないよ〜ん"}
         </p>
         <div className="member-list-wrapper">

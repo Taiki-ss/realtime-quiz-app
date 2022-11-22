@@ -14,7 +14,7 @@ export default function Home() {
 
   const entryUser = () => {
     if (username === "" || role === "") {
-      alert("名前、ポルト、職種を選択してから再度決定を押してください。");
+      alert("名前、職種を選択してから再度決定を押してください。");
       return;
     }
 
@@ -78,9 +78,7 @@ export default function Home() {
           <img src="images/logo.png" alt="" />
         </figure>
         <h1 className={styles.title}>
-          エンジニア王は
-          <br />
-          きみだ！
+          さあクイズの時間だ。
         </h1>
 
         <div>
@@ -96,16 +94,12 @@ export default function Home() {
             <div className="input-role">
               <select onChange={roleChange}>
                 <option value="">職種</option>
-                <option value="キャプテン">キャプテン</option>
-                <option value="キャプテンルーム">キャプテンルーム</option>
-                <option value="ディレクター">ディレクター</option>
-                <option value="ディレクターサポート">
-                  ディレクターサポート
-                </option>
-                <option value="カスタマーサポート">カスタマーサポート</option>
+                <option value="エンジニア">エンジニア</option>
                 <option value="デザイナー">デザイナー</option>
-                <option value="商品登録">商品登録</option>
-                <option value="その他">その他</option>
+                <option value="カスタマーサポート">カスタマーサポート</option>
+                <option value="営業">営業</option>
+                <option value="経理">経理</option>
+                
               </select>
             </div>
           </div>
