@@ -6,7 +6,6 @@ import Rank1 from "compornent/rank1";
 
 type member = {
   name: string;
-  porto: string;
   role: string;
   time: number;
   count: number;
@@ -67,7 +66,6 @@ export default function Result() {
                 member: [
                   {
                     name: v.data().name,
-                    porto: v.data().porto,
                     role: v.data().role,
                     time: v.data().time,
                     count: count,
@@ -79,7 +77,6 @@ export default function Result() {
             } else {
               (rankingArr[num].member as member[]).push({
                 name: v.data().name,
-                porto: v.data().porto,
                 role: v.data().role,
                 time: v.data().time,
                 count: count,
@@ -104,7 +101,6 @@ export default function Result() {
         >
           <td>{obj.lank}位</td>
           <td>{mem.name}</td>
-          <td>{mem.porto}</td>
           <td>{mem.role}</td>
           <td>
             {obj.point}点{" "}

@@ -9,12 +9,11 @@ const COLLECTION_NAME: string = process.env.NEXT_PUBLIC_COLLECTION_NAME
 
 export default function Home() {
   const [username, setUsername] = useState("");
-  const [porto, setPorto] = useState("");
   const [role, setRole] = useState("");
   const [userId, setUserId] = useState("");
 
   const entryUser = () => {
-    if (username === "" || porto === "" || role === "") {
+    if (username === "" || role === "") {
       alert("名前、ポルト、職種を選択してから再度決定を押してください。");
       return;
     }
@@ -29,7 +28,6 @@ export default function Home() {
     db.collection(COLLECTION_NAME)
       .add({
         name: username,
-        porto: porto,
         role: role,
         point: 0,
         time: 0,
@@ -57,11 +55,6 @@ export default function Home() {
 
   const nameChange = (e) => {
     setUsername(e.target.value);
-    setUserId("");
-  };
-
-  const portoChange = (e) => {
-    setPorto(e.target.value);
     setUserId("");
   };
 
@@ -99,18 +92,6 @@ export default function Home() {
                 value={username}
                 onChange={nameChange}
               />
-            </div>
-            <div className="input-porto">
-              <select onChange={portoChange}>
-                <option value="">所属ポルト</option>
-                <option value="はさぽる">はさぽる</option>
-                <option value="ありぽる">ありぽる</option>
-                <option value="よしぽる">よしぽる</option>
-                <option value="でじぽる">でじぽる</option>
-                <option value="いとぽる">いとぽる</option>
-                <option value="ときぽる">ときぽる</option>
-                <option value="その他">その他</option>
-              </select>
             </div>
             <div className="input-role">
               <select onChange={roleChange}>

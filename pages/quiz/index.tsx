@@ -21,7 +21,6 @@ type answered = {
 
 type userData = {
   name?: string;
-  porto?: string;
   role?: string;
   point?: number;
   time?: number;
@@ -181,7 +180,6 @@ export default function Quiz() {
           <h1>準備はいいかな？？</h1>
           <h2 className={styles.title}>エントリー</h2>
           <p>名前：{userData ? userData.name : ""}</p>
-          <p>所属：{userData ? userData.porto : ""}</p>
           <p>職種：{userData ? userData.role : ""}</p>
           <br />
           <p>スタートまでこのままお待ちください</p>
