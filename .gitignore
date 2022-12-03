@@ -7,3 +7,6 @@ next-env.d.ts
 /out
 
 /firebase
+
+.venv
+python/__pycache__

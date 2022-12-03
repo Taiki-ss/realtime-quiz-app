@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, HTMLInputTypeAttribute } from "react";
 import styles from "../styles/Home.module.scss";
 import Router from "next/router";
 import { db } from "firebase/firebase_init";
@@ -11,6 +11,8 @@ export default function Home() {
   const [username, setUsername] = useState("");
   const [role, setRole] = useState("");
   const [userId, setUserId] = useState("");
+  const [point, setPoint] = useState(0);
+  const [time, setTime] = useState(0);
 
   const entryUser = () => {
     if (username === "" || role === "") {
@@ -28,9 +30,9 @@ export default function Home() {
     db.collection(COLLECTION_NAME)
       .add({
         name: username,
-        role: role,
-        point: 0,
-        time: 0,
+        role,
+        point,
+        time,
         answered: {
           q1: "F",
           q2: "F",
@@ -61,6 +63,12 @@ export default function Home() {
   const roleChange = (e) => {
     setRole(e.target.value);
     setUserId("");
+  };
+  const pointChange = (e) => {
+    setPoint(e.target.value);
+  };
+  const timeChange = (e) => {
+    setTime(e.target.value);
   };
 
   // 自動ページ遷移
@@ -99,9 +107,28 @@ export default function Home() {
                 <option value="カスタマーサポート">カスタマーサポート</option>
                 <option value="営業">営業</option>
                 <option value="経理">経理</option>
-                
+                {/* <option value="セイバー">セイバー</option>
+                <option value="ランサー">ランサー</option>
+                <option value="アーチャー">アーチャー</option>
+                <option value="ライダー">ライダー</option>
+                <option value="キャスター">キャスター</option>
+                <option value="アサシン">アサシン</option>
+                <option value="バーサーカー">バーサーカー</option> */}
               </select>
             </div>
+            {/* <div className="input-point">
+              <label>point</label>
+              <input
+                onChange={pointChange}
+              />
+            </div>
+            <div className="input-time">
+              <label>time</label>
+              <input
+                onChange={timeChange}
+              />
+            </div> */}
+            
           </div>
 
           <button
