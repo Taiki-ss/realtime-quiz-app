@@ -12,6 +12,7 @@
 <p><img width="371" alt="answer" src="https://user-images.githubusercontent.com/81791711/203260947-41e009f2-da91-4bbc-afea-87ea6054236d.png"></p>
 ランキング画面　　
 <p><img width="1301" alt="rank" src="https://user-images.githubusercontent.com/81791711/203260670-7289127e-115c-4561-9a4c-acd7b0907931.png"></p>
+<p><img width=""1300" src="https://user-images.githubusercontent.com/81791711/205552296-6f802c51-b86b-4a98-a71f-29e8debd6d6f.png"></p>
 
 
 ### 使用技術
